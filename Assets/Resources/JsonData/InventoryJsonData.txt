@@ -1,14 +1,14 @@
 [
     {
         "ItemName": "Arrow",
-        "ItemNum": 64
+        "ItemNum": 84
     },
     {
         "ItemName": "Torch",
-        "ItemNum": 1
+        "ItemNum": 3
     },
     {
         "ItemName": "Axe",
-        "ItemNum": 1
+        "ItemNum": 15
     }
 ]

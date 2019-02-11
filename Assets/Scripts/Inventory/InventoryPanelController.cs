@@ -12,7 +12,7 @@ public class InventoryPanelController : MonoBehaviour
     private InventoryPanelModel m_InventoryPanelModel;
     private InventoryPanelView m_InventoryPanelView;
 
-    private int slotNum = 24;
+    private int slotNum = 30;
     private List<GameObject> slotList = new List<GameObject>();
 
     void Start()
