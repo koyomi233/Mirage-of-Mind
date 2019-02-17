@@ -1,0 +1,28 @@
+﻿[
+    {
+        "Type": [
+            {
+                "ItemName": "Groundsill"
+            },
+            {
+                "ItemName": "Wall"
+            },
+            {
+                "ItemName": "Door"
+            },
+            {
+                "ItemName": "Window"
+            }
+        ]
+    },
+	{
+        "Type": [
+            {
+                "ItemName": "Arror"
+            },
+            {
+                "ItemName": "Spear"
+            }
+        ]
+    }
+]

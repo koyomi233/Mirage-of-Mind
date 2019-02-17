@@ -11,7 +11,7 @@ public class CraftingPanelController : MonoBehaviour
     private CraftingPanelModel m_CraftingPanelModel;
     private CraftingPanelView m_CraftingPanelView;
 
-    private int tabsNum = 4;
+    private int tabsNum = 2;
     private List<GameObject> tabList;
     private List<GameObject> contentsList;
 
@@ -40,7 +40,8 @@ public class CraftingPanelController : MonoBehaviour
         for (int i = 0; i < tabsNum; i++)
         {
             GameObject run = GameObject.Instantiate<GameObject>(m_CraftingPanelView.Prefab_TabsItem, m_CraftingPanelView.Tabs_Transform);
-            run.GetComponent<CraftingTabItemController>().InitItem(i);
+            Sprite temp = m_CraftingPanelView.GetSpriteByName(m_CraftingPanelModel.GetTabsIconName()[i]);
+            run.GetComponent<CraftingTabItemController>().InitItem(i, temp);
             tabList.Add(run);
         }
     }
@@ -48,10 +49,12 @@ public class CraftingPanelController : MonoBehaviour
     // Generate all contents
     private void CreateAllContents()
     {
-        for(int i = 0; i < tabsNum; i++)
+        List<List<string>> tempList = m_CraftingPanelModel.GetJsonByName("CraftingContentsJsonData");
+
+        for (int i = 0; i < tabsNum; i++)
         {
             GameObject run = GameObject.Instantiate<GameObject>(m_CraftingPanelView.Prefab_Content, m_CraftingPanelView.Contents_Transform);
-            run.GetComponent<CraftingContentController>().InitContent(i, m_CraftingPanelView.Prefab_ContentItem);
+            run.GetComponent<CraftingContentController>().InitContent(i, m_CraftingPanelView.Prefab_ContentItem, tempList[i]);
             contentsList.Add(run);
         }
     }

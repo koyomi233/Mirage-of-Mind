@@ -27,10 +27,11 @@ public class CraftingTabItemController : MonoBehaviour
     }
 
     // Initialize items
-    public void InitItem(int index)
+    public void InitItem(int index, Sprite icon)
     {
         this.index = index;
         gameObject.name = "Tab" + index;
+        m_Icon.sprite = icon;
     }
 
     // Normal state of tab

@@ -17,18 +17,19 @@ public class CraftingContentController : MonoBehaviour
         m_Transform = gameObject.GetComponent<Transform>();
     }
 
-    public void InitContent(int index, GameObject prefab)
+    public void InitContent(int index, GameObject prefab, List<string> strList)
     {
         this.index = index;
         gameObject.name = "Content" + index;
-        CreateAllItems(index, prefab);
+        CreateAllItems(prefab, strList);
     }
 
-    private void CreateAllItems(int count, GameObject prefab)   
+    private void CreateAllItems(GameObject prefab, List<string> strList)   
     {
-        for(int i = 0; i < count; i++)
+        for(int i = 0; i < strList.Count; i++)
         {
-            GameObject.Instantiate<GameObject>(prefab, m_Transform);
+            GameObject run = GameObject.Instantiate<GameObject>(prefab, m_Transform);
+            run.GetComponent<CraftingContentItemController>().Init(strList[i]);
         }
     }
 }
