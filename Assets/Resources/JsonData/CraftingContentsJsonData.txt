@@ -2,15 +2,19 @@
     {
         "Type": [
             {
+				"ItemID": 1,
                 "ItemName": "Groundsill"
             },
             {
+				"ItemID": 2,
                 "ItemName": "Wall"
             },
             {
+				"ItemID": 3,
                 "ItemName": "Door"
             },
-            {
+            {	
+				"ItemID": 4,
                 "ItemName": "Window"
             }
         ]
@@ -18,9 +22,11 @@
 	{
         "Type": [
             {
+				"ItemID": 11,
                 "ItemName": "Arror"
             },
             {
+				"ItemID": 12,
                 "ItemName": "Spear"
             }
         ]

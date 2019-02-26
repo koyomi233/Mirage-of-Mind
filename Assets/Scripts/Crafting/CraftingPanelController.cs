@@ -12,8 +12,12 @@ public class CraftingPanelController : MonoBehaviour
     private CraftingPanelView m_CraftingPanelView;
 
     private int tabsNum = 2;
+    private int slotsNum = 25;
     private List<GameObject> tabList;
     private List<GameObject> contentsList;
+    private List<GameObject> slotsList;
+
+    private int currentIndex = -1;
 
     void Start()
     {
@@ -22,6 +26,8 @@ public class CraftingPanelController : MonoBehaviour
         CreateAllTabs();
         CreateAllContents();
         ResetTabsAndContents(0);
+        CreateAllSlots();
+        
     }
 
     // Initialization 
@@ -32,6 +38,7 @@ public class CraftingPanelController : MonoBehaviour
 
         tabList = new List<GameObject>();
         contentsList = new List<GameObject>();
+        slotsList = new List<GameObject>();
     }
 
     // Generate all tabs
@@ -49,7 +56,7 @@ public class CraftingPanelController : MonoBehaviour
     // Generate all contents
     private void CreateAllContents()
     {
-        List<List<string>> tempList = m_CraftingPanelModel.GetJsonByName("CraftingContentsJsonData");
+        List<List<CraftingContentItem>> tempList = m_CraftingPanelModel.GetJsonByName("CraftingContentsJsonData");
 
         for (int i = 0; i < tabsNum; i++)
         {
@@ -62,6 +69,7 @@ public class CraftingPanelController : MonoBehaviour
     // Reset tabs and text field
     private void ResetTabsAndContents(int index)
     {
+        if (currentIndex == index) return;
         for (int i = 0; i < tabList.Count; i++)
         {
             tabList[i].GetComponent<CraftingTabItemController>().NormalTab();
@@ -69,6 +77,44 @@ public class CraftingPanelController : MonoBehaviour
         }
         tabList[index].GetComponent<CraftingTabItemController>().ActiveTab();
         contentsList[index].SetActive(true);
+        currentIndex = index;
     }
 
+    // Generate all slots
+    private void CreateAllSlots()
+    {
+        for(int i = 0; i < slotsNum; i++)
+        {
+            GameObject run = GameObject.Instantiate<GameObject>(m_CraftingPanelView.Prefab_Slot, m_CraftingPanelView.Center_Transform);
+            run.name = "Slot" + i;
+            slotsList.Add(run);
+        }
+    }
+
+    // Add data to slots 
+    private void CreateSlotContents(int id)
+    {
+        CraftingMapItem temp = m_CraftingPanelModel.GetItemById(id);
+        if(temp != null)
+        {
+            ResetSlotsContents();
+            for (int j = 0; j < temp.MapContents.Length; j++)
+            {
+                if (temp.MapContents[j] != "0")
+                {
+                    Sprite sp = m_CraftingPanelView.GetMaterialIconSpriteByName(temp.MapContents[j]);
+                    slotsList[j].GetComponent<CraftingSlotController>().Init(sp);
+                }
+            }
+        }
+    }
+
+    // Clear contents of slots
+    private void ResetSlotsContents()
+    {
+        for (int i = 0; i < slotsList.Count; i++)
+        {
+            slotsList[i].GetComponent<CraftingSlotController>().Reset();
+        }
+    }
 }
