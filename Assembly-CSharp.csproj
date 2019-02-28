@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\Crafting\CraftingContentController.cs" />
     <Compile Include="Assets\Scripts\Crafting\CraftingContentItem.cs" />
     <Compile Include="Assets\Scripts\Crafting\CraftingContentItemController.cs" />
+    <Compile Include="Assets\Scripts\Crafting\CraftingController.cs" />
     <Compile Include="Assets\Scripts\Crafting\CraftingMapItem.cs" />
     <Compile Include="Assets\Scripts\Crafting\CraftingPanelController.cs" />
     <Compile Include="Assets\Scripts\Crafting\CraftingPanelModel.cs" />

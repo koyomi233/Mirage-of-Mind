@@ -7,7 +7,13 @@ public class CraftingSlotController : MonoBehaviour
 {
     private Transform m_Transform;
     private Image m_Image;
-    
+
+    private bool isOpen = false;
+    private int id = -1;
+
+    public bool IsOpen { get { return isOpen; } }
+    public int Id { get { return id; } }
+
     void Awake()
     {
         m_Transform = gameObject.GetComponent<Transform>();
@@ -16,10 +22,15 @@ public class CraftingSlotController : MonoBehaviour
 
     }
 
-    public void Init(Sprite sprite)
+    public void Init(Sprite sprite, string id)
     {
         m_Image.gameObject.SetActive(true);
         m_Image.sprite = sprite;
+
+        m_Image.gameObject.AddComponent<CanvasGroup>().blocksRaycasts = false;
+        isOpen = true;
+
+        this.id = int.Parse(id);
     }
 
     public void Reset()

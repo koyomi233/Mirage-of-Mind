@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 78, y: 70}
+  m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &168384004435767924
 CanvasRenderer:
@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 8005781340820438447}
   m_Layer: 5
   m_Name: CraftingSlot
-  m_TagString: Untagged
+  m_TagString: CraftingSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

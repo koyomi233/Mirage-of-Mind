@@ -8,8 +8,11 @@ using UnityEngine;
 
 public class CraftingPanelController : MonoBehaviour
 {
+    private Transform m_Transform;
+
     private CraftingPanelModel m_CraftingPanelModel;
     private CraftingPanelView m_CraftingPanelView;
+    private CraftingController m_CraftingController;
 
     private int tabsNum = 2;
     private int slotsNum = 25;
@@ -33,8 +36,11 @@ public class CraftingPanelController : MonoBehaviour
     // Initialization 
     private void Init()
     {
+        m_Transform = gameObject.GetComponent<Transform>();
+
         m_CraftingPanelModel = gameObject.GetComponent<CraftingPanelModel>();
         m_CraftingPanelView = gameObject.GetComponent<CraftingPanelView>();
+        m_CraftingController = m_Transform.Find("Right").GetComponent<CraftingController>();
 
         tabList = new List<GameObject>();
         contentsList = new List<GameObject>();
@@ -103,9 +109,11 @@ public class CraftingPanelController : MonoBehaviour
                 if (temp.MapContents[j] != "0")
                 {
                     Sprite sp = m_CraftingPanelView.GetMaterialIconSpriteByName(temp.MapContents[j]);
-                    slotsList[j].GetComponent<CraftingSlotController>().Init(sp);
+                    slotsList[j].GetComponent<CraftingSlotController>().Init(sp, temp.MapContents[j]);
                 }
             }
+            // Finally show the generated item
+            m_CraftingController.Init(temp.MapName);
         }
     }
 

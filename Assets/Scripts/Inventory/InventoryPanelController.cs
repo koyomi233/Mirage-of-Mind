@@ -29,6 +29,7 @@ public class InventoryPanelController : MonoBehaviour
         for(int i = 0; i < slotNum; i++)
         {
             GameObject tempSlot = GameObject.Instantiate<GameObject>(m_InventoryPanelView.Prefab_Slot, m_InventoryPanelView.GetGridTransform);
+            tempSlot.name = "InventorySlot_" + i;
             slotList.Add(tempSlot);
         }
     }
@@ -41,7 +42,7 @@ public class InventoryPanelController : MonoBehaviour
         for (int i = 0; i < tempList.Count; i++)
         {
             GameObject temp = GameObject.Instantiate<GameObject>(m_InventoryPanelView.Prefab_Item, slotList[i].GetComponent<Transform>());
-            temp.GetComponent<InventoryItemController>().initItem(tempList[i].ItemName, tempList[i].ItemNum);
+            temp.GetComponent<InventoryItemController>().initItem(tempList[i].ItemId, tempList[i].ItemName, tempList[i].ItemNum);
         }   
     }
 }
