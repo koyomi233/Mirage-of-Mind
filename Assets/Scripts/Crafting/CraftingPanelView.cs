@@ -46,44 +46,22 @@ public class CraftingPanelView : MonoBehaviour
         tabIconDic = new Dictionary<string, Sprite>();
         materialIconDic = new Dictionary<string, Sprite>();
 
-        TabsIconLoad();
-        MaterialIconLoad();
+        // Generate all tabs' icon
+        tabIconDic = ResourcesTools.LoadFolderAssets("TabIcon", tabIconDic);
+        // Composite map material loading
+        materialIconDic = ResourcesTools.LoadFolderAssets("Material", materialIconDic);
     }
 
-    // Generate all tabs' icon
-    private void TabsIconLoad()
-    {
-        Sprite[] tempSprite = Resources.LoadAll<Sprite>("TabIcon");
-        for (int i = 0; i < tempSprite.Length; i++)
-        {
-            tabIconDic.Add(tempSprite[i].name, tempSprite[i]);
-        }
-    }
-
-    // Composite map material loading
-    private void MaterialIconLoad()
-    {
-        Sprite[] tempSprite = Resources.LoadAll<Sprite>("Material");
-        for (int i = 0; i < tempSprite.Length; i++)
-        {
-            materialIconDic.Add(tempSprite[i].name, tempSprite[i]);
-        }
-    }
-
-    // Search an icon by name in dictionary
+    // Search a tab icon by name in dictionary
     public Sprite GetSpriteByName(string name)
     {
-        Sprite temp = null;
-        tabIconDic.TryGetValue(name, out temp);
-        return temp;
+        return ResourcesTools.GetAssets(name, tabIconDic);
     }
 
     // Search material icon sprite by name in dictionary
     public Sprite GetMaterialIconSpriteByName(string name)
     {
-        Sprite temp = null;
-        materialIconDic.TryGetValue(name, out temp);
-        return temp;
+        return ResourcesTools.GetAssets(name, materialIconDic);
     }
   
 }

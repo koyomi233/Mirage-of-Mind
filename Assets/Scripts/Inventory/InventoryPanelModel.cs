@@ -14,18 +14,9 @@ public class InventoryPanelModel : MonoBehaviour
         
     }
 
+    // Obtain list by searching JSON file name
     public List<InventoryItem> GetJsonList(string fileName)
     {
-        List<InventoryItem> tempList = new List<InventoryItem>();
-        string tempJsonStr = Resources.Load<TextAsset>("JsonData/" + fileName).text;
-
-        JsonData jsonData = JsonMapper.ToObject(tempJsonStr);
-        for (int i = 0; i < jsonData.Count; i++)
-        {
-            InventoryItem inventoryItem = JsonMapper.ToObject<InventoryItem>(jsonData[i].ToJson());
-            tempList.Add(inventoryItem);
-        }
-
-        return tempList;
+        return JsonTools.LoadJsonFile<InventoryItem>(fileName);
     }
 }
