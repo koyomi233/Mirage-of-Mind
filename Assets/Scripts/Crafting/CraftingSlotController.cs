@@ -19,7 +19,7 @@ public class CraftingSlotController : MonoBehaviour
         m_Transform = gameObject.GetComponent<Transform>();
         m_Image = m_Transform.Find("Item").GetComponent<Image>();
         m_Image.gameObject.SetActive(false);
-
+        m_Image.gameObject.AddComponent<CanvasGroup>();
     }
 
     public void Init(Sprite sprite, string id)
@@ -27,7 +27,7 @@ public class CraftingSlotController : MonoBehaviour
         m_Image.gameObject.SetActive(true);
         m_Image.sprite = sprite;
 
-        m_Image.gameObject.AddComponent<CanvasGroup>().blocksRaycasts = false;
+        m_Image.gameObject.GetComponent<CanvasGroup>().blocksRaycasts = false;
         isOpen = true;
 
         this.id = int.Parse(id);
