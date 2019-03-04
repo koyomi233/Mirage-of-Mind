@@ -104,6 +104,8 @@ public class CraftingPanelController : MonoBehaviour
         if(temp != null)
         {
             ResetSlotsContents();
+            ResetMaterials();
+
             for (int j = 0; j < temp.MapContents.Length; j++)
             {
                 if (temp.MapContents[j] != "0")
@@ -124,5 +126,20 @@ public class CraftingPanelController : MonoBehaviour
         {
             slotsList[i].GetComponent<CraftingSlotController>().Reset();
         }
+    }
+
+    // Reset materials in crafting panel
+    private void ResetMaterials()
+    {
+        List<GameObject> materialsList = new List<GameObject>();
+        for (int i = 0; i < slotsList.Count; i++)
+        {
+            Transform tempTransform = slotsList[i].transform.Find("InventoryItem");
+            if (tempTransform != null)
+            {
+                materialsList.Add(tempTransform.gameObject);
+            }
+        }
+        InventoryPanelController.Instance.AddItems(materialsList);
     }
 }

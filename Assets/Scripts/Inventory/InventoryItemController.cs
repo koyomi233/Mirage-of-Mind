@@ -40,7 +40,12 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
     public bool InInventory
     {
         get { return inInventory; }
-        set { inInventory = value; }
+        set {
+            inInventory = value;
+            m_RectTransform.localPosition = Vector3.zero;
+            m_RectTransform.localScale = Vector3.one;
+            ResetSpriteSize(m_RectTransform, 45, 45);
+        }
     }
 
     private void Awake()

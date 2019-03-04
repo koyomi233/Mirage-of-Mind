@@ -8,12 +8,19 @@ using UnityEngine;
 
 public class InventoryPanelController : MonoBehaviour
 {
+    public static InventoryPanelController Instance;
+
     // To achieve objects model and view
     private InventoryPanelModel m_InventoryPanelModel;
     private InventoryPanelView m_InventoryPanelView;
 
     private int slotNum = 30;
     private List<GameObject> slotList = new List<GameObject>();
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -44,5 +51,21 @@ public class InventoryPanelController : MonoBehaviour
             GameObject temp = GameObject.Instantiate<GameObject>(m_InventoryPanelView.Prefab_Item, slotList[i].GetComponent<Transform>());
             temp.GetComponent<InventoryItemController>().initItem(tempList[i].ItemId, tempList[i].ItemName, tempList[i].ItemNum);
         }   
+    }
+
+    // Put materials back to inventory when change 
+    public void AddItems(List<GameObject> itemList)
+    {
+        int tempIndex = 0;
+        for(int i = 0; i < slotList.Count; i++)
+        {
+            Transform tempTransform = slotList[i].transform.Find("InventoryItem");
+            if (tempTransform == null && tempIndex < itemList.Count)
+            {
+                itemList[tempIndex].transform.SetParent(slotList[i].transform);
+                itemList[tempIndex].GetComponent<InventoryItemController>().InInventory = true;
+                tempIndex++;
+            }
+        }
     }
 }
