@@ -11,16 +11,17 @@ using UnityEngine.EventSystems;
 public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     private RectTransform m_RectTransform;
-    private Transform parent;
-    private Transform self_parent;
     private CanvasGroup m_CanvasGroup;
 
     private Image m_Image;                         // item icon
     private Text m_Text;                           // item number
     private int id;                                // self id
-    private int num = 0;                           
+    private int num = 0;                           // number of item
     private bool isDrag = false;                   // drag status
     private bool inInventory = true;               // whether in inventory
+
+    private Transform parent;                      // temporary parent of item
+    private Transform self_parent;                 // original parent of item
 
     public int Num
     {
@@ -31,11 +32,7 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
         }
     }
 
-    public int Id
-    {
-        get { return id; }
-        set { id = value; }
-    }
+    public int Id { get { return id; } set { id = value; } }
 
     public bool InInventory
     {
@@ -50,6 +47,21 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
 
     private void Awake()
     {
+        FindInit();
+    }
+
+    void Update()
+    {
+        // Click mouse button 1 and split materials
+        if (Input.GetMouseButtonDown(1) && isDrag == true)
+        {
+            SplitMaterials();
+        }
+    }
+
+    // Initialization of Find
+    private void FindInit()
+    {
         m_RectTransform = gameObject.GetComponent<RectTransform>();
         m_CanvasGroup = gameObject.GetComponent<CanvasGroup>();
         m_Image = gameObject.GetComponent<Image>();
@@ -58,14 +70,6 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
         gameObject.name = "InventoryItem";
         //parent = m_RectTransform.parent.parent.parent.parent;
         parent = GameObject.Find("InventoryPanel").GetComponent<Transform>();
-    }
-
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(1) && isDrag == true)
-        {
-            SplitMaterials();
-        }
     }
 
     // Initiate items
@@ -96,74 +100,10 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
     void IEndDragHandler.OnEndDrag(PointerEventData eventData)
     {
         GameObject target = eventData.pointerEnter;
-        if(target != null)
-        {
-            // Put in the specified location of inventory slot
-            if(target.tag == "InventorySlot")
-            {
-                m_RectTransform.SetParent(target.transform);
-                ResetSpriteSize(m_RectTransform, 45, 45);
-                inInventory = true;
-            }
-            // Put back 
-            if(target.tag != "InventorySlot")
-            {
-                m_RectTransform.SetParent(self_parent);
-            }
-            // Exchange
-            if (target.tag == "InventoryItem")
-            {
-                if (inInventory && target.GetComponent<InventoryItemController>().InInventory)
-                {
-                    if(Id == target.GetComponent<InventoryItemController>().Id)
-                    {
-                        MergeMaterials(target.GetComponent<InventoryItemController>());
-                    }
-                    else
-                    {
-                        Transform tempTransform = target.GetComponent<Transform>();
-                        m_RectTransform.SetParent(tempTransform.parent);
-                        tempTransform.SetParent(self_parent);
-                        tempTransform.localPosition = Vector3.zero;
-                    }
-                }
-                else
-                {
-                    if (Id == target.GetComponent<InventoryItemController>().Id && 
-                        target.GetComponent<InventoryItemController>().inInventory)
-                    {
-                        MergeMaterials(target.GetComponent<InventoryItemController>());
-                    }
-                }
-            }
-            // Put in the specified location of crafting slot
-            if (target.tag == "CraftingSlot")
-            {
-                if (target.GetComponent<CraftingSlotController>().IsOpen)
-                {
-                    if(id == target.GetComponent<CraftingSlotController>().Id)
-                    {
-                        m_RectTransform.SetParent(target.transform);
-                        ResetSpriteSize(m_RectTransform, 40, 40);
-                        m_RectTransform.localScale = Vector3.one;
-                        inInventory = false;
-                    }
-                    else
-                    {
-                        m_RectTransform.SetParent(self_parent);
-                    }
-                }
-                else
-                {
-                    m_RectTransform.SetParent(self_parent);
-                }
-            }
-        }
-        else
-        {
-            // Reset
-            m_RectTransform.SetParent(self_parent);
-        }
+
+        ItemDrag(target);
+
+        // Reset attributes
         m_CanvasGroup.blocksRaycasts = true;
         m_RectTransform.localPosition = Vector3.zero;
         isDrag = false;
@@ -174,6 +114,7 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
     {
         rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, width);
         rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, height);
+        m_RectTransform.localScale = Vector3.one;
     }
 
     // Material split
@@ -207,5 +148,85 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
         targetTransform.localPosition = Vector3.zero;
         targetTransform.localScale = Vector3.one;
         GameObject.Destroy(gameObject);
+    }
+
+    // Conditions when drag items
+    private void ItemDrag(GameObject target)
+    {
+        if (target != null)
+        {
+            #region Movement in inventory slot
+            // Put in the specified location of inventory slot
+            if (target.tag == "InventorySlot")
+            {
+                m_RectTransform.SetParent(target.transform);
+                ResetSpriteSize(m_RectTransform, 45, 45);
+                inInventory = true;
+            }
+            // Put back 
+            if (target.tag != "InventorySlot")
+            {
+                m_RectTransform.SetParent(self_parent);
+            }
+            #endregion
+
+            #region Exchange item
+            if (target.tag == "InventoryItem")
+            {
+                InventoryItemController iic = target.GetComponent<InventoryItemController>();
+                if (inInventory && iic.InInventory)
+                {
+                    if (Id == iic.Id)
+                    {
+                        MergeMaterials(iic);
+                    }
+                    else
+                    {
+                        Transform tempTransform = target.GetComponent<Transform>();
+                        m_RectTransform.SetParent(tempTransform.parent);
+                        tempTransform.SetParent(self_parent);
+                        tempTransform.localPosition = Vector3.zero;
+                    }
+                }
+                else
+                {
+                    if (Id == iic.Id && iic.inInventory)
+                    {
+                        MergeMaterials(iic);
+                    }
+                }
+            }
+            #endregion
+
+            #region Put into the specified location of crafting slot
+            if (target.tag == "CraftingSlot")
+            {
+                if (target.GetComponent<CraftingSlotController>().IsOpen)
+                {
+                    if (id == target.GetComponent<CraftingSlotController>().Id)
+                    {
+                        m_RectTransform.SetParent(target.transform);
+                        ResetSpriteSize(m_RectTransform, 40, 40);
+                        inInventory = false;
+                        // Inform the controller of crafting panel
+                        InventoryPanelController.Instance.SendDragMaterialsItem(gameObject);
+                    }
+                    else
+                    {
+                        m_RectTransform.SetParent(self_parent);
+                    }
+                }
+                else
+                {
+                    m_RectTransform.SetParent(self_parent);
+                }
+            }
+            #endregion
+        }
+        else
+        {
+            // Reset
+            m_RectTransform.SetParent(self_parent);
+        }
     }
 }

@@ -8,6 +8,8 @@ using UnityEngine;
 
 public class CraftingPanelController : MonoBehaviour
 {
+    public static CraftingPanelController Instance;
+
     private Transform m_Transform;
 
     private CraftingPanelModel m_CraftingPanelModel;
@@ -19,8 +21,17 @@ public class CraftingPanelController : MonoBehaviour
     private List<GameObject> tabList;
     private List<GameObject> contentsList;
     private List<GameObject> slotsList;
+    private List<GameObject> materialsList;
 
     private int currentIndex = -1;
+
+    private int materialsCount = 0;                       // Number of materials needed for generation(declared in JSON)
+    private int dragMaterialsCount = 0;                   // Number of materials in crafting panel
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -45,6 +56,9 @@ public class CraftingPanelController : MonoBehaviour
         tabList = new List<GameObject>();
         contentsList = new List<GameObject>();
         slotsList = new List<GameObject>();
+        materialsList = new List<GameObject>();
+
+        m_CraftingController.Prefab_InventoryItem = m_CraftingPanelView.Prefab_InventoryItem;
     }
 
     // Generate all tabs
@@ -105,7 +119,7 @@ public class CraftingPanelController : MonoBehaviour
         {
             ResetSlotsContents();
             ResetMaterials();
-
+            // Filling the blank
             for (int j = 0; j < temp.MapContents.Length; j++)
             {
                 if (temp.MapContents[j] != "0")
@@ -115,7 +129,9 @@ public class CraftingPanelController : MonoBehaviour
                 }
             }
             // Finally show the generated item
-            m_CraftingController.Init(temp.MapName);
+            m_CraftingController.Init(temp.MapId, temp.MapName);
+            // Record the number of materials needed
+            materialsCount = temp.MaterialsCount;
         }
     }
 
@@ -141,5 +157,44 @@ public class CraftingPanelController : MonoBehaviour
             }
         }
         InventoryPanelController.Instance.AddItems(materialsList);
+    }
+
+    // Manage the items which are dragged into crafting panel
+    public void DragMaterialsItem(GameObject item)
+    {
+        materialsList.Add(item);
+        dragMaterialsCount++;
+        Debug.Log("当前需要：" + materialsCount + ", 已有：" + dragMaterialsCount);
+        // Active the generate button
+        if (materialsCount == dragMaterialsCount)
+        {
+            m_CraftingController.ActiveButton();
+        }
+    }
+
+    // Finish crafting
+    private void CraftingOK()
+    {
+        for (int i = 0; i < materialsList.Count; i++)
+        {
+            InventoryItemController iic = materialsList[i].GetComponent<InventoryItemController>();
+            if(iic.Num == 1)
+            {
+                GameObject.Destroy(materialsList[i]);
+            }
+            else
+            {
+                iic.Num = iic.Num - 1;
+            }
+        }
+        StartCoroutine("ResetMap");
+    }
+
+    private IEnumerator ResetMap()
+    {
+        yield return new WaitForSeconds(0.01f);
+        ResetMaterials();
+        dragMaterialsCount = 0;
+        materialsList.Clear();
     }
 }

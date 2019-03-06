@@ -68,4 +68,9 @@ public class InventoryPanelController : MonoBehaviour
             }
         }
     }
+
+    public void SendDragMaterialsItem(GameObject item)
+    {
+        CraftingPanelController.Instance.DragMaterialsItem(item);
+    }
 }

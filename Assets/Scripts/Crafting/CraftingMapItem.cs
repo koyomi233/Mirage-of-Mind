@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// JSON file: CraftingMapJsonData
+/// </summary>
 public class CraftingMapItem 
 {
-    private int mapId;
-    private string[] mapContents;
-    private string mapName;
+    private int mapId;                    // Map ID
+    private string[] mapContents;         // Map contents
+    private int mapCount;                 // Number of materials needed
+    private string mapName;               // Map name
 
     public int MapId
     {
@@ -20,21 +24,28 @@ public class CraftingMapItem
         set { mapContents = value; }
     }
 
+    public int MaterialsCount
+    {
+        get { return mapCount; }
+        set { mapCount = value; }
+    }
+
     public string MapName
     {
         get { return mapName; }
         set { mapName = value; }
     }
 
-    public CraftingMapItem(int mapId, string[] mapContents, string mapName)
+    public CraftingMapItem(int mapId, string[] mapContents, int mapCount, string mapName)
     {
         this.mapId = mapId;
         this.mapContents = mapContents;
         this.mapName = mapName;
+        this.mapCount = mapCount;
     }
 
     public override string ToString()
     {
-        return string.Format("ID: {0}, Map: {1}, Name: {2}", this.mapId, this.mapContents.Length, this.mapName);
+        return string.Format("ID: {0}, Map: {1}, Name: {2}, Count: {3}", this.mapId, this.mapContents.Length, this.mapName, this.mapCount);
     }
 }
