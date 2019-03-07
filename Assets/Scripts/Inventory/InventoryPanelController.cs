@@ -6,7 +6,7 @@ using UnityEngine;
 /// Backpack controller
 /// </summary>
 
-public class InventoryPanelController : MonoBehaviour
+public class InventoryPanelController : MonoBehaviour, IUIPanelShowAndHide
 {
     public static InventoryPanelController Instance;
 
@@ -72,5 +72,15 @@ public class InventoryPanelController : MonoBehaviour
     public void SendDragMaterialsItem(GameObject item)
     {
         CraftingPanelController.Instance.DragMaterialsItem(item);
+    }
+
+    public void UIPanelShow()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void UIPanelHide()
+    {
+        gameObject.SetActive(false);
     }
 }

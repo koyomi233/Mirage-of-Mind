@@ -69,7 +69,7 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
 
         gameObject.name = "InventoryItem";
         //parent = m_RectTransform.parent.parent.parent.parent;
-        parent = GameObject.Find("InventoryPanel").GetComponent<Transform>();
+        parent = GameObject.Find("Canvas").GetComponent<Transform>();
     }
 
     // Initiate items
