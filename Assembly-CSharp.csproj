@@ -60,6 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Demigiant\DOTweenPro\DOTweenAnimation.cs" />
     <Compile Include="Assets\Scripts\Const\GameConst.cs" />
     <Compile Include="Assets\Scripts\Crafting\CraftingContentController.cs" />
     <Compile Include="Assets\Scripts\Crafting\CraftingContentItem.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Assets\Scripts\Crafting\CraftingSlotController.cs" />
     <Compile Include="Assets\Scripts\Crafting\CraftingTabItemController.cs" />
     <Compile Include="Assets\Scripts\Demo\Demo_17.cs" />
+    <Compile Include="Assets\Scripts\Gun\AssaultRifle.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryItem.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryItemController.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryPanelController.cs" />
@@ -86,9 +88,16 @@
     <Compile Include="Assets\Scripts\Tools\JsonTools.cs" />
     <Compile Include="Assets\Scripts\Tools\ResourcesTools.cs" />
     <Compile Include="Assets\Scripts\UserInterface\IUIPanelShowAndHide.cs" />
+    <None Include="Assets\Demigiant\DOTweenPro\readme.txt" />
+    <None Include="Assets\Demigiant\DemiLib\Core\DemiLib.xml" />
+    <None Include="Assets\Demigiant\DOTween\DOTween50.xml" />
     <None Include="Assets\Resources\JsonData\InventoryJsonData.txt" />
     <None Include="Assets\Resources\JsonData\CraftingMapJsonData.txt" />
+    <None Include="Assets\Demigiant\DOTween\DOTween46.xml" />
     <None Include="Assets\Resources\JsonData\CraftingContentsJsonData.txt" />
+    <None Include="Assets\Demigiant\DOTween\readme.txt" />
+    <None Include="Assets\Demigiant\DOTween\DOTween43.xml" />
+    <None Include="Assets\Demigiant\readme_DOTweenPro.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/Unity_Workspace/Mirrage of Mind/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
@@ -316,6 +325,24 @@
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
       <HintPath>D:/Unity_Workspace/Mirrage of Mind/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween46">
+      <HintPath>D:/Unity_Workspace/Mirrage of Mind/Assets/Demigiant/DOTween/DOTween46.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween50">
+      <HintPath>D:/Unity_Workspace/Mirrage of Mind/Assets/Demigiant/DOTween/DOTween50.dll</HintPath>
+    </Reference>
+    <Reference Include="DemiLib">
+      <HintPath>D:/Unity_Workspace/Mirrage of Mind/Assets/Demigiant/DemiLib/Core/DemiLib.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween43">
+      <HintPath>D:/Unity_Workspace/Mirrage of Mind/Assets/Demigiant/DOTween/DOTween43.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween">
+      <HintPath>D:/Unity_Workspace/Mirrage of Mind/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTweenPro">
+      <HintPath>D:/Unity_Workspace/Mirrage of Mind/Assets/Demigiant/DOTweenPro/DOTweenPro.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>D:/Unity/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
