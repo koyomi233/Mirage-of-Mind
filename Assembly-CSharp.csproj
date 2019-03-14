@@ -78,6 +78,7 @@
     <Compile Include="Assets\Scripts\Inventory\InventoryPanelModel.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryPanelView.cs" />
     <Compile Include="Assets\Scripts\Manager\InputManager.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\Scripts\ToolBar\ToolBarPanelController.cs" />
     <Compile Include="Assets\Scripts\ToolBar\ToolBarPanelModel.cs" />
     <Compile Include="Assets\Scripts\ToolBar\ToolBarPanelView.cs" />
