@@ -5,62 +5,141 @@ using DG.Tweening;
 
 public class AssaultRifle : MonoBehaviour
 {
-    private Transform m_Transform;
-    private Animator m_Animator;
-    private Camera m_EnvCamera;
+    private AssaultRifleView m_AssaultRifeView;
 
-    private Vector3 startPos;
-    private Vector3 startRot;
-    private Vector3 endPos;
-    private Vector3 endRot;
+    // Field
+    private int id;
+    private int demage;
+    private int durable;
+    private GunType gunWeaponType;
+
+    private AudioClip audio;
+    private GameObject effect;
+
+    private Ray ray;
+    private RaycastHit hit;
+
+    #region Attributes
+    public int Id
+    {
+        get { return id; }
+        set { id = value; }
+    }
+    public int Demage
+    {
+        get { return demage; }
+        set { demage = value; }
+    }
+    public int Durable
+    {
+        get { return durable; }
+        set { durable = value; }
+    }
+    public GunType GunWeaponType
+    {
+        get { return gunWeaponType; }
+        set { gunWeaponType = value; }
+    }
+    public AudioClip Audio
+    {
+        get { return audio; }
+        set { audio = value; }
+    }
+    public GameObject Effect
+    {
+        get { return effect; }
+        set { effect = value; }
+    }
+    #endregion
 
     void Start()
     {
-        m_Transform = gameObject.GetComponent<Transform>();
-        m_Animator = gameObject.GetComponent<Animator>();
-        m_EnvCamera = GameObject.Find("EnvCamera").GetComponent<Camera>();
-
-        startPos = m_Transform.localPosition;
-        startRot = m_Transform.localRotation.eulerAngles;
-        endPos = new Vector3(-0.065f, -1.85f, 0.25f);
-        endRot = new Vector3(2.8f, 1.3f, 0.08f);
+        Init();
     }
 
     void Update()
     {
+        MouseControl();
+        ShootReady();
+    }
+
+    private void Init()
+    {
+        m_AssaultRifeView = gameObject.GetComponent<AssaultRifleView>();
+        audio = Resources.Load<AudioClip>("Audios/Gun/AssaultRifle_Fire");
+        effect = Resources.Load<GameObject>("Effects/Gun/AssaultRifle_GunPoint_Effect");
+    }
+
+    // Play sound
+    private void PlayAudio()
+    {
+        AudioSource.PlayClipAtPoint(audio, m_AssaultRifeView.GunPoint.position);
+    }
+
+    // Play effect
+    private void PlayEffect()
+    {
+        // Gun fire effect
+        GameObject.Instantiate<GameObject>(effect, m_AssaultRifeView.GunPoint.position, Quaternion.identity).GetComponent<ParticleSystem>().Play();
+        // Shell out effect
+        Rigidbody shell = GameObject.Instantiate<GameObject>(m_AssaultRifeView.Shell, m_AssaultRifeView.EffectPos.position, Quaternion.identity).GetComponent<Rigidbody>();
+        shell.AddForce(m_AssaultRifeView.EffectPos.up * 50);
+    }
+
+    // Ready aim fire
+    private void ShootReady()
+    {
+        ray = new Ray(m_AssaultRifeView.GunPoint.position, m_AssaultRifeView.GunPoint.forward);
+        if (Physics.Raycast(ray, out hit))
+        {
+            Vector2 uiPos = RectTransformUtility.WorldToScreenPoint(m_AssaultRifeView.M_EnvCamera, hit.point);
+            m_AssaultRifeView.FrontSight.position = uiPos;
+        }
+        else
+        {
+            hit.point = Vector3.zero;
+            Debug.Log("no hit message");
+        }
+    }
+
+    // Open fire
+    private void Shoot()
+    {
+        if (hit.point != Vector3.zero)
+        {
+            GameObject.Instantiate<GameObject>(m_AssaultRifeView.Bullet, hit.point, Quaternion.identity);
+            Debug.Log("Bullet");
+        }
+        else
+        {
+            Debug.Log("Empty");
+        }
+    }
+
+    // Control using mouse
+    private void MouseControl()
+    {
         // Shoot
         if (Input.GetMouseButtonDown(0))
         {
-            m_Animator.SetTrigger("Fire");
+            m_AssaultRifeView.M_Animator.SetTrigger("Fire");
+            PlayEffect();
+            PlayAudio();
+            Shoot();
         }
         // Aim
         if (Input.GetMouseButton(1))
         {
-            m_Animator.SetBool("HoldPose", true);
-            EnterHoldPose();
+            m_AssaultRifeView.M_Animator.SetBool("HoldPose", true);
+            m_AssaultRifeView.EnterHoldPose();
+            m_AssaultRifeView.FrontSight.gameObject.SetActive(false);
         }
         // Reset
         if (Input.GetMouseButtonUp(1))
         {
-            m_Animator.SetBool("HoldPose", false);
-            ExistHoldPose();
+            m_AssaultRifeView.M_Animator.SetBool("HoldPose", false);
+            m_AssaultRifeView.ExistHoldPose();
+            m_AssaultRifeView.FrontSight.gameObject.SetActive(true);
         }
-    }
-
-    // Aim
-    private void EnterHoldPose()
-    {
-        m_Transform.DOLocalMove(endPos, 0.2f);
-        m_Transform.DOLocalRotate(endRot, 0.2f);
-
-        m_EnvCamera.DOFieldOfView(40, 0.2f);
-    }
-    // Reset
-    private void ExistHoldPose()
-    {
-        m_Transform.DOLocalMove(startPos, 0.2f);
-        m_Transform.DOLocalRotate(startRot, 0.2f);
-
-        m_EnvCamera.DOFieldOfView(60, 0.2f);
     }
 }
