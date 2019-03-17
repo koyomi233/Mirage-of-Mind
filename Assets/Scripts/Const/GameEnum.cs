@@ -9,3 +9,13 @@ public enum GunType
     Shotgun,
     WoodenBow
 }
+
+/// <summary>
+/// Enum for material texture
+/// </summary>
+public enum MaterialType
+{
+    Metal,
+    Stone,
+    Wood
+}

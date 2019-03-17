@@ -107,8 +107,14 @@ public class AssaultRifle : MonoBehaviour
     {
         if (hit.point != Vector3.zero)
         {
-            GameObject.Instantiate<GameObject>(m_AssaultRifeView.Bullet, hit.point, Quaternion.identity);
-            Debug.Log("Bullet");
+            if(hit.collider.GetComponent<BulletMark>() != null)
+            {
+                hit.collider.GetComponent<BulletMark>().CreateBulletMark(hit);
+            }
+            else
+            {
+                GameObject.Instantiate<GameObject>(m_AssaultRifeView.Bullet, hit.point, Quaternion.identity);
+            }
         }
         else
         {
