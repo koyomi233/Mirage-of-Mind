@@ -5,11 +5,17 @@ using UnityEngine;
 /// <summary>
 /// Create mark of bullet
 /// </summary>
+[RequireComponent(typeof(ObjectPool))]
 public class BulletMark : MonoBehaviour
 {
+    private ObjectPool pool;
+
+    private Transform effectParent;                     // Effect resources management
+
     private Texture2D m_BulletMark;                     // Bullet texture
     private Texture2D m_MainTexture;                    // Model texture
     private Texture2D m_MainTextureBackup;              // Back up model texture
+    private GameObject prefab_Effect;                   // Effect for bullet
 
     [SerializeField]
     private MaterialType materialType;                  // Material of the model
@@ -21,19 +27,36 @@ public class BulletMark : MonoBehaviour
         switch (materialType)
         {
             case MaterialType.Metal:
-                m_BulletMark = Resources.Load<Texture2D>("Gun/BulletMarks/Bullet Decal_Metal");
+                ResourcesLoad("Bullet Decal_Metal", "Bullet Impact FX_Metal", "Effect_Metal_Parent");
                 break;
             case MaterialType.Stone:
-                m_BulletMark = Resources.Load<Texture2D>("Gun/BulletMarks/Bullet Decal_Stone");
+                ResourcesLoad("Bullet Decal_Stone", "Bullet Impact FX_Stone", "Effect_Stone_Parent");
                 break;
             case MaterialType.Wood:
-                m_BulletMark = Resources.Load<Texture2D>("Gun/BulletMarks/Bullet Decal_Wood");
+                ResourcesLoad("Bullet Decal_Wood", "Bullet Impact FX_Wood", "Effect_Wood_Parent");
                 break;
         }
+
+        if (gameObject.GetComponent<ObjectPool>() == null)
+        {
+            pool = gameObject.AddComponent<ObjectPool>();
+        }
+        else
+        {
+            pool = gameObject.GetComponent<ObjectPool>();
+        }
+
         m_MainTexture = (Texture2D)gameObject.GetComponent<MeshRenderer>().material.mainTexture;
         m_MainTextureBackup = GameObject.Instantiate<Texture2D>(m_MainTexture);
 
         bulletMarkQuene = new Queue<Vector2>();
+    }
+
+    private void ResourcesLoad(string bulletMark, string effect, string parent)
+    {
+        m_BulletMark = Resources.Load<Texture2D>("Gun/BulletMarks/" + bulletMark);
+        prefab_Effect = Resources.Load<GameObject>("Effects/Gun/" + effect);
+        effectParent = GameObject.Find("TempObject/" + parent).GetComponent<Transform>();
     }
 
     public void CreateBulletMark(RaycastHit hit)
@@ -60,6 +83,10 @@ public class BulletMark : MonoBehaviour
             }
         }
         m_MainTexture.Apply();
+
+        // Play effect
+        PlayEffect(hit);
+
         Invoke("RemoveBulletMark", 5.0f);
     }
 
@@ -84,5 +111,32 @@ public class BulletMark : MonoBehaviour
             }
             m_MainTexture.Apply();
         }
+    }
+
+    private void PlayEffect(RaycastHit hit)
+    {
+        GameObject effect = null;
+
+        // Check object pool
+        if (pool.Data())
+        {
+            // Use object in pool
+            effect = pool.GetObject();
+            effect.GetComponent<Transform>().position = hit.point;
+        }
+        else
+        {
+            // Add new object to pool
+            effect = GameObject.Instantiate<GameObject>(prefab_Effect, hit.point, Quaternion.LookRotation(hit.normal), effectParent);
+            effect.name = "Effect_" + materialType;
+        }
+
+        StartCoroutine(Delay(effect, 1));
+    }
+
+    private IEnumerator Delay(GameObject obj, float time)
+    {
+        yield return new WaitForSeconds(time);
+        pool.AddObject(obj);
     }
 }

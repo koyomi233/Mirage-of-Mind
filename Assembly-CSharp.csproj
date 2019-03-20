@@ -89,6 +89,7 @@
     <Compile Include="Assets\Scripts\ToolBar\ToolBarPanelView.cs" />
     <Compile Include="Assets\Scripts\ToolBar\ToolBarSlotController.cs" />
     <Compile Include="Assets\Scripts\Tools\JsonTools.cs" />
+    <Compile Include="Assets\Scripts\Tools\ObjectPool.cs" />
     <Compile Include="Assets\Scripts\Tools\ResourcesTools.cs" />
     <Compile Include="Assets\Scripts\UserInterface\IUIPanelShowAndHide.cs" />
     <None Include="Assets\Demigiant\DOTweenPro\readme.txt" />

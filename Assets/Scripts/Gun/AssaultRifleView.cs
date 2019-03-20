@@ -22,6 +22,9 @@ public class AssaultRifleView : MonoBehaviour
     private GameObject bullet;
     private GameObject shell;
 
+    private Transform effectParent;
+    private Transform shellParent;
+
     public Transform M_Transform { get { return m_Transform; } }
     public Animator M_Animator { get { return m_Animator; } }
     public Camera M_EnvCamera { get { return m_EnvCamera; } }
@@ -32,6 +35,9 @@ public class AssaultRifleView : MonoBehaviour
 
     public GameObject Bullet { get { return bullet; } }
     public GameObject Shell { get { return shell; } }
+
+    public Transform EffectParent { get { return effectParent; } }
+    public Transform ShellParent { get { return shellParent; } }
 
     private void Awake()
     {
@@ -50,6 +56,9 @@ public class AssaultRifleView : MonoBehaviour
 
         bullet = Resources.Load<GameObject>("Gun/Bullet");
         shell = Resources.Load<GameObject>("Gun/Shell");
+
+        effectParent = GameObject.Find("TempObject/AssaultRifle_Effect_Parent").GetComponent<Transform>();
+        shellParent = GameObject.Find("TempObject/AssaultRifle_Shell_Parent").GetComponent<Transform>();
     }
 
     // Aim

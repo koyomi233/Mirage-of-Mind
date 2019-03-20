@@ -6,6 +6,7 @@ using DG.Tweening;
 public class AssaultRifle : MonoBehaviour
 {
     private AssaultRifleView m_AssaultRifeView;
+    private ObjectPool[] pools;
 
     // Field
     private int id;
@@ -68,6 +69,8 @@ public class AssaultRifle : MonoBehaviour
         m_AssaultRifeView = gameObject.GetComponent<AssaultRifleView>();
         audio = Resources.Load<AudioClip>("Audios/Gun/AssaultRifle_Fire");
         effect = Resources.Load<GameObject>("Effects/Gun/AssaultRifle_GunPoint_Effect");
+
+        pools = gameObject.GetComponents<ObjectPool>();
     }
 
     // Play sound
@@ -79,11 +82,44 @@ public class AssaultRifle : MonoBehaviour
     // Play effect
     private void PlayEffect()
     {
+        GameObject gunEffect = null;
+        GameObject shell = null;
+
         // Gun fire effect
-        GameObject.Instantiate<GameObject>(effect, m_AssaultRifeView.GunPoint.position, Quaternion.identity).GetComponent<ParticleSystem>().Play();
+        if (pools[0].Data())                                               // Use existed gun fire effect
+        {
+            gunEffect = pools[0].GetObject();
+            gunEffect.GetComponent<Transform>().position = hit.point;
+        }
+        else                                                               // Add new gun fire effect
+        {
+            gunEffect = GameObject.Instantiate<GameObject>(effect, m_AssaultRifeView.GunPoint.position, Quaternion.identity, m_AssaultRifeView.EffectParent);
+            gunEffect.name = "GunPoint_Effect";
+        }
+        gunEffect.GetComponent<ParticleSystem>().Play();
+        StartCoroutine(Delay(pools[0], gunEffect, 1));
+
         // Shell out effect
-        Rigidbody shell = GameObject.Instantiate<GameObject>(m_AssaultRifeView.Shell, m_AssaultRifeView.EffectPos.position, Quaternion.identity).GetComponent<Rigidbody>();
-        shell.AddForce(m_AssaultRifeView.EffectPos.up * 50);
+        if (pools[1].Data())
+        {
+            shell = pools[1].GetObject();
+            shell.GetComponent<Rigidbody>().isKinematic = true;
+            shell.GetComponent<Transform>().position = m_AssaultRifeView.EffectPos.position;
+            shell.GetComponent<Rigidbody>().isKinematic = false;
+        }
+        else
+        {
+            shell = GameObject.Instantiate<GameObject>(m_AssaultRifeView.Shell, m_AssaultRifeView.EffectPos.position, Quaternion.identity, m_AssaultRifeView.ShellParent);
+            shell.name = "shell";
+        }
+        shell.GetComponent<Rigidbody>().AddForce(m_AssaultRifeView.EffectPos.up * 50);
+        StartCoroutine(Delay(pools[1], shell, 3));
+    }
+
+    private IEnumerator Delay(ObjectPool pool, GameObject obj, float time)
+    {
+        yield return new WaitForSeconds(time);
+        pool.AddObject(obj);
     }
 
     // Ready aim fire
