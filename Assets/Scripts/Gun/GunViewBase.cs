@@ -36,13 +36,14 @@ public abstract class GunViewBase : MonoBehaviour
     public Transform FrontSight { get { return frontSight; } }
     public Transform GunPoint { get { return gunPoint; } set { gunPoint = value; } }
 
-    public void Awake()
+    public virtual void Awake()
     {
         m_Transform = gameObject.GetComponent<Transform>();
         m_Animator = gameObject.GetComponent<Animator>();
         m_EnvCamera = GameObject.Find("EnvCamera").GetComponent<Camera>();
         frontSight = GameObject.Find("FrontSight").GetComponent<Transform>();
 
+        Init();
         InitHoldPoseValue();
         FindGunPoint();
     }
@@ -63,6 +64,9 @@ public abstract class GunViewBase : MonoBehaviour
 
         M_EnvCamera.DOFieldOfView(fov, time);
     }
+
+    // Initialize all components
+    public abstract void Init();
 
     // Initialize actions of aiming
     public abstract void InitHoldPoseValue();

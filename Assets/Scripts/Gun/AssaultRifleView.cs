@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class AssaultRifleView : GunViewBase
 {
-   
-    
     private Transform effectPos;
 
     private GameObject bullet;
@@ -22,10 +20,8 @@ public class AssaultRifleView : GunViewBase
     public Transform EffectParent { get { return effectParent; } }
     public Transform ShellParent { get { return shellParent; } }
 
-    private void Awake()
+    public override void Init()
     {
-        base.Awake();       
-        
         effectPos = M_Transform.Find("Assault_Rifle/EffectPosB");
         bullet = Resources.Load<GameObject>("Gun/Bullet");
         shell = Resources.Load<GameObject>("Gun/Shell");
