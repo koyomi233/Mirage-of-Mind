@@ -9,10 +9,10 @@ public class AssaultRifle : MonoBehaviour
     private ObjectPool[] pools;
 
     // Field
-    private int id;
-    private int demage;
-    private int durable;
-    private GunType gunWeaponType;
+    [SerializeField] private int id;
+    [SerializeField] private int demage;
+    [SerializeField] private int durable;
+    [SerializeField] private GunType gunWeaponType;
 
     private AudioClip audio;
     private GameObject effect;
@@ -34,7 +34,15 @@ public class AssaultRifle : MonoBehaviour
     public int Durable
     {
         get { return durable; }
-        set { durable = value; }
+        set
+        {
+            durable = value;
+            if(durable <= 0)
+            {
+                GameObject.Destroy(gameObject);
+                GameObject.Destroy(m_AssaultRifeView.FrontSight.gameObject);
+            }
+        }
     }
     public GunType GunWeaponType
     {
@@ -146,6 +154,7 @@ public class AssaultRifle : MonoBehaviour
             if(hit.collider.GetComponent<BulletMark>() != null)
             {
                 hit.collider.GetComponent<BulletMark>().CreateBulletMark(hit);
+                hit.collider.GetComponent<BulletMark>().HP -= demage;
             }
             else
             {
@@ -156,6 +165,9 @@ public class AssaultRifle : MonoBehaviour
         {
             Debug.Log("Empty");
         }
+
+        // Decrease durable
+        Durable--;
     }
 
     // Control using mouse

@@ -77,6 +77,7 @@
     <Compile Include="Assets\Scripts\Gun\AssaultRifle.cs" />
     <Compile Include="Assets\Scripts\Gun\AssaultRifleView.cs" />
     <Compile Include="Assets\Scripts\Gun\BulletMark.cs" />
+    <Compile Include="Assets\Scripts\Gun\GunViewBase.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryItem.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryItemController.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryPanelController.cs" />

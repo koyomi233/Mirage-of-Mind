@@ -17,11 +17,24 @@ public class BulletMark : MonoBehaviour
     private Texture2D m_MainTextureBackup;              // Back up model texture
     private GameObject prefab_Effect;                   // Effect for bullet
 
-    [SerializeField]
-    private MaterialType materialType;                  // Material of the model
+    [SerializeField] private MaterialType materialType;                  // Material of the model
 
     private Queue<Vector2> bulletMarkQuene = null;      // Queue of bullet mark
-    
+
+    [SerializeField] private int hp;                    // Test
+
+    public int HP
+    {
+        get { return hp; }
+        set {
+            hp = value;
+            if(hp <= 0)
+            {
+                GameObject.Destroy(gameObject);
+            }
+        }
+    } 
+
     void Start()
     {
         switch (materialType)
@@ -123,6 +136,7 @@ public class BulletMark : MonoBehaviour
             // Use object in pool
             effect = pool.GetObject();
             effect.GetComponent<Transform>().position = hit.point;
+            effect.GetComponent<Transform>().rotation = Quaternion.LookRotation(hit.normal);
         }
         else
         {
