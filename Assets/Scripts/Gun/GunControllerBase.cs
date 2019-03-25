@@ -38,6 +38,8 @@ public abstract class GunControllerBase : MonoBehaviour
         }
     }
 
+    private bool canShoot = true;
+
     // Component's attribute
     public GunViewBase M_GunViewBase { get { return m_GunViewBase; } set { m_GunViewBase = value; } }
     public AudioClip Audio { get { return audio; } set { audio = value; } }
@@ -69,7 +71,7 @@ public abstract class GunControllerBase : MonoBehaviour
     private void MouseControl()
     {
         // Shoot
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && canShoot)
         {
             MouseButtonLeftDown();
         }
@@ -128,6 +130,21 @@ public abstract class GunControllerBase : MonoBehaviour
         pool.AddObject(obj);
     }
 
+    private void CanShoot(int state)
+    {
+        if(state == 0)
+        {
+            canShoot = false;
+        }
+        else
+        {
+            canShoot = true;
+        }
+    }
+
+    // Initialize all components
+    public abstract void Init();
+
     // Load audio resources
     public abstract void LoadAudio();
 
@@ -139,7 +156,4 @@ public abstract class GunControllerBase : MonoBehaviour
 
     // Play effect
     public abstract void PlayEffect();
-
-    // Initialize all components
-    public abstract void Init();
 }

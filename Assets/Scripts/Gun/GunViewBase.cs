@@ -48,6 +48,9 @@ public abstract class GunViewBase : MonoBehaviour
         FindGunPoint();
     }
 
+    // Initialize all components
+    public abstract void Init();
+
     // Aim
     public void EnterHoldPose(float time = 0.2f, int fov = 40)
     {
@@ -64,9 +67,6 @@ public abstract class GunViewBase : MonoBehaviour
 
         M_EnvCamera.DOFieldOfView(fov, time);
     }
-
-    // Initialize all components
-    public abstract void Init();
 
     // Initialize actions of aiming
     public abstract void InitHoldPoseValue();
