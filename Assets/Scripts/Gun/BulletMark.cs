@@ -14,7 +14,8 @@ public class BulletMark : MonoBehaviour
 
     private Texture2D m_BulletMark;                     // Bullet texture
     private Texture2D m_MainTexture;                    // Model texture
-    private Texture2D m_MainTextureBackup;              // Back up model texture
+    private Texture2D m_MainTextureBackup_1;            // Back up model texture
+    private Texture2D m_MainTextureBackup_2;
     private GameObject prefab_Effect;                   // Effect for bullet
 
     [SerializeField] private MaterialType materialType;                  // Material of the model
@@ -60,7 +61,9 @@ public class BulletMark : MonoBehaviour
         }
 
         m_MainTexture = (Texture2D)gameObject.GetComponent<MeshRenderer>().material.mainTexture;
-        m_MainTextureBackup = GameObject.Instantiate<Texture2D>(m_MainTexture);
+        m_MainTextureBackup_1 = GameObject.Instantiate<Texture2D>(m_MainTexture);
+        m_MainTextureBackup_2 = GameObject.Instantiate<Texture2D>(m_MainTexture);
+        gameObject.GetComponent<MeshRenderer>().material.mainTexture = m_MainTextureBackup_1;
 
         bulletMarkQuene = new Queue<Vector2>();
     }
@@ -82,8 +85,8 @@ public class BulletMark : MonoBehaviour
         {
             for (int j = 0; j < m_BulletMark.height; j++)                                   // y axis
             {
-                float x = uv.x * m_MainTexture.width - m_BulletMark.width / 2 + i;
-                float y = uv.y * m_MainTexture.height - m_BulletMark.height / 2 + j;
+                float x = uv.x * m_MainTextureBackup_1.width - m_BulletMark.width / 2 + i;
+                float y = uv.y * m_MainTextureBackup_1.height - m_BulletMark.height / 2 + j;
 
                 // Get the color of bullet mark texture
                 Color color = m_BulletMark.GetPixel(i, j);
@@ -91,11 +94,11 @@ public class BulletMark : MonoBehaviour
                 // Merge textures of model and bullet
                 if(color.a > 0.2f)
                 {
-                    m_MainTexture.SetPixel((int)x, (int)y, color);
+                    m_MainTextureBackup_1.SetPixel((int)x, (int)y, color);
                 }
             }
         }
-        m_MainTexture.Apply();
+        m_MainTextureBackup_1.Apply();
 
         // Play effect
         PlayEffect(hit);
@@ -113,16 +116,16 @@ public class BulletMark : MonoBehaviour
             {
                 for (int j = 0; j < m_BulletMark.height; j++)                                   // y axis
                 {
-                    float x = uv.x * m_MainTexture.width - m_BulletMark.width / 2 + i;
-                    float y = uv.y * m_MainTexture.height - m_BulletMark.height / 2 + j;
+                    float x = uv.x * m_MainTextureBackup_1.width - m_BulletMark.width / 2 + i;
+                    float y = uv.y * m_MainTextureBackup_1.height - m_BulletMark.height / 2 + j;
 
                     // Get the color of original texture
-                    Color color = m_MainTextureBackup.GetPixel((int) x, (int) y);
+                    Color color = m_MainTextureBackup_2.GetPixel((int) x, (int) y);
 
                     m_MainTexture.SetPixel((int)x, (int)y, color);
                 }
             }
-            m_MainTexture.Apply();
+            m_MainTextureBackup_1.Apply();
         }
     }
 
