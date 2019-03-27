@@ -130,7 +130,7 @@ public abstract class GunControllerBase : MonoBehaviour
         pool.AddObject(obj);
     }
 
-    private void CanShoot(int state)
+    public void CanShoot(int state)
     {
         if(state == 0)
         {
