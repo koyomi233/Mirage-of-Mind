@@ -86,6 +86,8 @@
     <Compile Include="Assets\Scripts\Gun\ShotgunView.cs" />
     <Compile Include="Assets\Scripts\Gun\WoodenBow.cs" />
     <Compile Include="Assets\Scripts\Gun\WoodenBowView.cs" />
+    <Compile Include="Assets\Scripts\Gun\WoodenSpear.cs" />
+    <Compile Include="Assets\Scripts\Gun\WoodenSpearView.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryItem.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryItemController.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryPanelController.cs" />
