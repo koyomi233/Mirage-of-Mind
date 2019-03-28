@@ -8,6 +8,8 @@ public class Arrow : MonoBehaviour
     private Rigidbody m_Rigidbody;
     private BoxCollider m_BoxCollider;
 
+    private Transform m_Pivot;
+
     private int damage;
 
     private void Awake()
@@ -15,6 +17,8 @@ public class Arrow : MonoBehaviour
         m_Transform = gameObject.GetComponent<Transform>();
         m_Rigidbody = gameObject.GetComponent<Rigidbody>();
         m_BoxCollider = gameObject.GetComponent<BoxCollider>();
+
+        m_Pivot = m_Transform.Find("Pivot").GetComponent<Transform>();
     }
 
     public void Shoot(Vector3 dir, int force, int damage)
@@ -32,6 +36,25 @@ public class Arrow : MonoBehaviour
             GameObject.Destroy(m_BoxCollider);
             collision.collider.GetComponent<BulletMark>().HP -= damage;
             m_Transform.SetParent(collision.gameObject.transform);
+            StartCoroutine("TailAnimation");
+        }
+    }
+
+    // Tail vibrating animation
+    private IEnumerator TailAnimation()
+    {
+        float stopTime = Time.time + 1.0f;
+        float range = 1.0f;
+        float vel = 0;
+
+        Quaternion startRot = Quaternion.Euler(new Vector3(Random.Range(-5.0f, 5.0f), Random.Range(-5.0f, 5.0f), 0));
+
+        while(Time.time < stopTime)
+        {
+            m_Pivot.localRotation = Quaternion.Euler(new Vector3(Random.Range(-range, range), Random.Range(-range, range), 0)) * startRot;
+            range = Mathf.SmoothDamp(range, 0, ref vel, stopTime - Time.time);
+
+            yield return null;
         }
     }
 }
