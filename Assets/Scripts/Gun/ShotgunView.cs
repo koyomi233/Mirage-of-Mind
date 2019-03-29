@@ -14,7 +14,7 @@ public class ShotgunView : GunViewBase
     public GameObject Shell { get { return shell; } }
     public GameObject Bullet { get { return bullet; } }
 
-    public override void Init()
+    protected override void Init()
     {
         effectPos = M_Transform.Find("Armature/Weapon/EffectPosB");
         effectAudio = Resources.Load<AudioClip>("Audios/Gun/Shotgun_Pump");
@@ -22,12 +22,12 @@ public class ShotgunView : GunViewBase
         bullet = Resources.Load<GameObject>("Gun/Shotgun_Bullet");
     }
 
-    public override void FindGunPoint()
+    protected override void FindGunPoint()
     {
         GunPoint = M_Transform.Find("Armature/Weapon/EffectPosA");
     }
 
-    public override void InitHoldPoseValue()
+    protected override void InitHoldPoseValue()
     {
         StartPos = M_Transform.localPosition;
         StartRot = M_Transform.localRotation.eulerAngles;

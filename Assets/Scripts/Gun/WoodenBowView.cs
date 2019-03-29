@@ -8,17 +8,17 @@ public class WoodenBowView : GunViewBase
 
     public GameObject Arrow { get { return arrow; } }
 
-    public override void Init()
+    protected override void Init()
     {
         arrow = Resources.Load<GameObject>("Gun/Arrow");
     }
 
-    public override void FindGunPoint()
+    protected override void FindGunPoint()
     {
         GunPoint = M_Transform.Find("Armature/Arm_L/Forearm_L/Wrist_L/Weapon/EffectPosA");
     }
 
-    public override void InitHoldPoseValue()
+    protected override void InitHoldPoseValue()
     {
         StartPos = M_Transform.localPosition;
         StartRot = M_Transform.localRotation.eulerAngles;

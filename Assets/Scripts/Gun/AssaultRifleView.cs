@@ -20,7 +20,7 @@ public class AssaultRifleView : GunViewBase
     public Transform EffectParent { get { return effectParent; } }
     public Transform ShellParent { get { return shellParent; } }
 
-    public override void Init()
+    protected override void Init()
     {
         effectPos = M_Transform.Find("Assault_Rifle/EffectPosB");
         bullet = Resources.Load<GameObject>("Gun/Bullet");
@@ -29,7 +29,7 @@ public class AssaultRifleView : GunViewBase
         shellParent = GameObject.Find("TempObject/AssaultRifle_Shell_Parent").GetComponent<Transform>();
     }
 
-    public override void InitHoldPoseValue()
+    protected override void InitHoldPoseValue()
     {
         StartPos = M_Transform.localPosition;
         StartRot = M_Transform.localRotation.eulerAngles;
@@ -37,7 +37,7 @@ public class AssaultRifleView : GunViewBase
         EndRot = new Vector3(2.8f, 1.3f, 0.08f);
     }
 
-    public override void FindGunPoint()
+    protected override void FindGunPoint()
     {
         GunPoint = M_Transform.Find("Assault_Rifle/EffectPosA");
     }

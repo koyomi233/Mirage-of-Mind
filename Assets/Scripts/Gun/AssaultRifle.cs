@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class AssaultRifle : GunControllerBase
+public class AssaultRifle : GunWeaponBase
 {
     private AssaultRifleView m_AssaultRifeView;
     private ObjectPool[] pools;
 
-    public override void Init()
+    protected override void Init()
     {
         m_AssaultRifeView = (AssaultRifleView)M_GunViewBase;
         pools = gameObject.GetComponents<ObjectPool>();
     }
 
     // Play effect
-    public override void PlayEffect()
+    protected override void PlayEffect()
     {
         GunFireEffect();
         ShellEffect();
@@ -61,7 +61,7 @@ public class AssaultRifle : GunControllerBase
     }
 
     // Open fire
-    public override void Shoot()
+    protected override void Shoot()
     {
         if (Hit.point != Vector3.zero)
         {
@@ -84,12 +84,12 @@ public class AssaultRifle : GunControllerBase
         Durable--;
     }
 
-    public override void LoadAudio()
+    protected override void LoadAudio()
     {
         Audio = Resources.Load<AudioClip>("Audios/Gun/AssaultRifle_Fire");
     }
 
-    public override void LoadEffect()
+    protected override void LoadEffect()
     {
         Effect = Resources.Load<GameObject>("Effects/Gun/AssaultRifle_GunPoint_Effect");
     }

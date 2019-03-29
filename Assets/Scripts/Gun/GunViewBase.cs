@@ -36,7 +36,7 @@ public abstract class GunViewBase : MonoBehaviour
     public Transform FrontSight { get { return frontSight; } }
     public Transform GunPoint { get { return gunPoint; } set { gunPoint = value; } }
 
-    public virtual void Awake()
+    protected virtual void Awake()
     {
         m_Transform = gameObject.GetComponent<Transform>();
         m_Animator = gameObject.GetComponent<Animator>();
@@ -49,7 +49,7 @@ public abstract class GunViewBase : MonoBehaviour
     }
 
     // Initialize all components
-    public abstract void Init();
+    protected abstract void Init();
 
     // Aim
     public void EnterHoldPose(float time = 0.2f, int fov = 40)
@@ -69,8 +69,8 @@ public abstract class GunViewBase : MonoBehaviour
     }
 
     // Initialize actions of aiming
-    public abstract void InitHoldPoseValue();
+    protected abstract void InitHoldPoseValue();
 
     // Search the position of muzzle
-    public abstract void FindGunPoint();
+    protected abstract void FindGunPoint();
 }

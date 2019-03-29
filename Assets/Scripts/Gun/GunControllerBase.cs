@@ -47,11 +47,10 @@ public abstract class GunControllerBase : MonoBehaviour
     public Ray MyRay { get { return ray; } set { ray = value; } }
     public RaycastHit Hit { get { return hit; } set { hit = value; } }
 
-    public virtual void Start()
+    protected virtual void Start()
     {
         m_GunViewBase = gameObject.GetComponent<GunViewBase>();
         LoadAudio();
-        LoadEffect();
         Init();
     }
 
@@ -62,13 +61,13 @@ public abstract class GunControllerBase : MonoBehaviour
     }
 
     // Play sound
-    public void PlayAudio()
+    protected void PlayAudio()
     {
         AudioSource.PlayClipAtPoint(Audio, m_GunViewBase.GunPoint.position);
     }
 
     // Control using mouse
-    private void MouseControl()
+    protected void MouseControl()
     {
         // Shoot
         if (Input.GetMouseButtonDown(0) && canShoot)
@@ -87,20 +86,19 @@ public abstract class GunControllerBase : MonoBehaviour
         }
     }
 
-    private void MouseButtonLeftDown()
+    protected virtual void MouseButtonLeftDown()
     {
         m_GunViewBase.M_Animator.SetTrigger("Fire");
-        PlayEffect();
         PlayAudio();
         Shoot();
     }
-    private void MouseButtonRightDown()
+    protected void MouseButtonRightDown()
     {
         m_GunViewBase.M_Animator.SetBool("HoldPose", true);
         m_GunViewBase.EnterHoldPose();
         m_GunViewBase.FrontSight.gameObject.SetActive(false);
     }
-    private void MouseButtonRightUp()
+    protected void MouseButtonRightUp()
     {
         m_GunViewBase.M_Animator.SetBool("HoldPose", false);
         m_GunViewBase.ExistHoldPose();
@@ -108,7 +106,7 @@ public abstract class GunControllerBase : MonoBehaviour
     }
 
     // Ready aim fire
-    public void ShootReady()
+    protected void ShootReady()
     {
         ray = new Ray(m_GunViewBase.GunPoint.position, m_GunViewBase.GunPoint.forward);
         if (Physics.Raycast(ray, out hit))
@@ -124,13 +122,13 @@ public abstract class GunControllerBase : MonoBehaviour
     }
 
     // Delay
-    public IEnumerator Delay(ObjectPool pool, GameObject obj, float time)
+    protected IEnumerator Delay(ObjectPool pool, GameObject obj, float time)
     {
         yield return new WaitForSeconds(time);
         pool.AddObject(obj);
     }
 
-    public void CanShoot(int state)
+    protected void CanShoot(int state)
     {
         if(state == 0)
         {
@@ -143,17 +141,11 @@ public abstract class GunControllerBase : MonoBehaviour
     }
 
     // Initialize all components
-    public abstract void Init();
+    protected abstract void Init();
 
     // Load audio resources
-    public abstract void LoadAudio();
-
-    // Load effect resources
-    public abstract void LoadEffect();
+    protected abstract void LoadAudio();
 
     // Fire
-    public abstract void Shoot();
-
-    // Play effect
-    public abstract void PlayEffect();
+    protected abstract void Shoot();
 }

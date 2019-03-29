@@ -14,11 +14,13 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
     private CanvasGroup m_CanvasGroup;
 
     private Image m_Image;                         // item icon
+    private Image m_Bar;                         // item durability
     private Text m_Text;                           // item number
     private int id;                                // self id
     private int num = 0;                           // number of item
     private bool isDrag = false;                   // drag status
     private bool inInventory = true;               // whether in inventory
+    private int bar = 0;                           // whether need durability. 0: need, 1: don't need
 
     private Transform parent;                      // temporary parent of item
     private Transform self_parent;                 // original parent of item
@@ -66,6 +68,7 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
         m_CanvasGroup = gameObject.GetComponent<CanvasGroup>();
         m_Image = gameObject.GetComponent<Image>();
         m_Text = m_RectTransform.Find("Num").gameObject.GetComponent<Text>();
+        m_Bar = m_RectTransform.Find("Bar").gameObject.GetComponent<Image>();
 
         gameObject.name = "InventoryItem";
         //parent = m_RectTransform.parent.parent.parent.parent;
@@ -73,12 +76,14 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
     }
 
     // Initiate items
-    public void initItem(int id, string name, int num)
+    public void initItem(int id, string name, int num, int bar)
     {
         this.id = id;
         m_Image.sprite = Resources.Load<Sprite>("Item/" + name);
         this.num = num;
+        this.bar = bar;
         m_Text.text = num.ToString();
+        BarOrNumber();
     }
 
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
@@ -227,6 +232,18 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
         {
             // Reset
             m_RectTransform.SetParent(self_parent);
+        }
+    }
+
+    private void BarOrNumber()
+    {
+        if(bar == 0)
+        {
+            m_Bar.gameObject.SetActive(false);
+        }
+        else
+        {
+            m_Text.gameObject.SetActive(false);
         }
     }
 }

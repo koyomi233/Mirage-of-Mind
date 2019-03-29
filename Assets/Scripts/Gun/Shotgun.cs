@@ -2,26 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shotgun : GunControllerBase
+public class Shotgun : GunWeaponBase
 {
     private ShotgunView m_ShotgunView;
 
-    public override void Init()
+    protected override void Init()
     {
         m_ShotgunView = (ShotgunView)M_GunViewBase;
     }
 
-    public override void LoadAudio()
+    protected override void LoadAudio()
     {
         Audio = Resources.Load<AudioClip>("Audios/Gun/Shotgun_Fire");
     }
 
-    public override void LoadEffect()
+    protected override void LoadEffect()
     {
         Effect = Resources.Load<GameObject>("Effects/Gun/Shotgun_GunPoint_Effect");
     }
 
-    public override void PlayEffect()
+    protected override void PlayEffect()
     {
         // Gun fire effect
         GameObject tempEffect = GameObject.Instantiate<GameObject>(Effect, m_ShotgunView.GunPoint.position, Quaternion.identity);
@@ -39,7 +39,7 @@ public class Shotgun : GunControllerBase
         StartCoroutine(DelayDestory(tempShell, 5.0f));
     }
 
-    public override void Shoot()
+    protected override void Shoot()
     {
         StartCoroutine("CreateBullets");
     }

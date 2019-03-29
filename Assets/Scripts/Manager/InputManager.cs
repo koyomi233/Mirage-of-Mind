@@ -1,14 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class InputManager : MonoBehaviour
 {
     private bool inventoryState = false;
 
+    private FirstPersonController m_FirstPersonController;
+    private GunControllerBase m_GunControllerBase;
+    private GameObject frontSight;
+
     private void Start()
     {
         InventoryPanelController.Instance.UIPanelHide();
+        FindInit();
     }
 
     void Update()
@@ -17,20 +23,35 @@ public class InputManager : MonoBehaviour
         ToolBarPanelKey();
     }
 
+    private void FindInit()
+    {
+        m_FirstPersonController = GameObject.Find("FPSController").GetComponent<FirstPersonController>();
+        m_GunControllerBase = GameObject.Find("FPSController/PersonCamera/Shotgun").GetComponent<GunControllerBase>();
+        frontSight = GameObject.Find("Canvas/MainPanel/FrontSight");
+    }
+
     // Key to control backpack
     private void InventoryPanelKey()
     {
         if (Input.GetKeyDown(GameConst.InventoryPanelKey))
         {
-            if (inventoryState)
+            if (inventoryState)                 // Close pack
             {
                 inventoryState = false;
                 InventoryPanelController.Instance.UIPanelHide();
+                m_FirstPersonController.enabled = true;
+                m_GunControllerBase.enabled = true;
+                frontSight.SetActive(true);
             }
-            else
+            else                                // Open pack
             {
                 inventoryState = true;
                 InventoryPanelController.Instance.UIPanelShow();
+                m_FirstPersonController.enabled = false;
+                m_GunControllerBase.enabled = false;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                frontSight.SetActive(false);
             }
         }
     }
