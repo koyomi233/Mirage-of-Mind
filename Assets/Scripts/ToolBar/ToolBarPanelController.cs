@@ -13,8 +13,11 @@ public class ToolBarPanelController : MonoBehaviour
     private List<GameObject> slotList = null;                   // Store all slots in bar
     private GameObject currentActive = null;                    // Store the active slot
     private GameObject currentActiveModel = null;               // Store the active model
+    private int currentKeyCode = -1;                            // Store the current slot
 
     private Dictionary<GameObject, GameObject> toolBarDic = null;
+
+    public GameObject CurrentActiveModel { get { return currentActiveModel; } }
 
     private void Awake()
     {
@@ -60,6 +63,11 @@ public class ToolBarPanelController : MonoBehaviour
 
     public void SaveActiveSlotByKey(int keyNum)
     {
+        if (slotList[keyNum].GetComponent<Transform>().Find("InventoryItem") == null)
+        {
+            return;
+        }
+
         if (currentActive != null && currentActive != slotList[keyNum])
         {
             currentActive.GetComponent<ToolBarSlotController>().Normal();
@@ -67,30 +75,48 @@ public class ToolBarPanelController : MonoBehaviour
         }
         currentActive = slotList[keyNum];
         currentActive.GetComponent<ToolBarSlotController>().SlotClick();
-        CallGunFactory();
+
+        if (currentKeyCode == keyNum && currentActiveModel != null)                           // Drop down weapon
+        {
+            currentActiveModel.SetActive(false);
+            currentActiveModel = null;
+        }
+        else                                                                                  // Switch weapon
+        {
+            FindInventoryItem();
+        }
+        // Store the current slot
+        currentKeyCode = keyNum;
     }
 
     // Call GunFactory class
-    private void CallGunFactory()
+    private void FindInventoryItem()
     {
         Transform m_temp = currentActive.GetComponent<Transform>().Find("InventoryItem");
-        if(m_temp != null)
+        StartCoroutine("CallGunFactory", m_temp);
+    }
+
+    private IEnumerator CallGunFactory(Transform m_temp)
+    {
+        if (m_temp != null)
         {
             // Hide the current model
-            if(currentActiveModel != null)
+            if (currentActiveModel != null)
             {
+                currentActiveModel.GetComponent<GunControllerBase>().Holster();
+                yield return new WaitForSeconds(0.8f);
                 currentActiveModel.SetActive(false);
             }
             GameObject temp = null;
             toolBarDic.TryGetValue(m_temp.gameObject, out temp);
-            if(temp == null)
+            if (temp == null)
             {
                 temp = GunFactory.Instance.CreateGun(m_temp.GetComponent<Image>().sprite.name, m_temp.gameObject);
                 toolBarDic.Add(m_temp.gameObject, temp);
             }
             else
             {
-                if(currentActive.GetComponent<ToolBarSlotController>().SelfState)
+                if (currentActive.GetComponent<ToolBarSlotController>().SelfState)
                     temp.SetActive(true);
             }
             currentActiveModel = temp;

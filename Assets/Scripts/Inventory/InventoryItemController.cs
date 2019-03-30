@@ -64,6 +64,11 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
     // Update the UI value
     public void UpdateUI(float value)
     {
+        if(value <= 0)
+        {
+            gameObject.GetComponent<Transform>().parent.GetComponent<ToolBarSlotController>().Normal();
+            GameObject.Destroy(gameObject);
+        }
         m_Bar.fillAmount = value;
     }
 

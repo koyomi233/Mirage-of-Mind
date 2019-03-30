@@ -8,8 +8,6 @@ public class InputManager : MonoBehaviour
     private bool inventoryState = false;
 
     private FirstPersonController m_FirstPersonController;
-    //private GunControllerBase m_GunControllerBase;
-    private GameObject frontSight;
 
     private void Start()
     {
@@ -20,14 +18,15 @@ public class InputManager : MonoBehaviour
     void Update()
     {
         InventoryPanelKey();
-        ToolBarPanelKey();
+        if(inventoryState == false)
+        {
+            ToolBarPanelKey();
+        }   
     }
 
     private void FindInit()
     {
         m_FirstPersonController = GameObject.Find("FPSController").GetComponent<FirstPersonController>();
-        //m_GunControllerBase = GameObject.Find("FPSController/PersonCamera/Shotgun").GetComponent<GunControllerBase>();
-        frontSight = GameObject.Find("Canvas/MainPanel/FrontSight");
     }
 
     // Key to control backpack
@@ -41,17 +40,21 @@ public class InputManager : MonoBehaviour
                 InventoryPanelController.Instance.UIPanelHide();
                 m_FirstPersonController.enabled = true;
                 //m_GunControllerBase.enabled = true;
-                frontSight.SetActive(true);
+                //frontSight.SetActive(true);
+                if (ToolBarPanelController.Instance.CurrentActiveModel != null)
+                    ToolBarPanelController.Instance.CurrentActiveModel.SetActive(true);
             }
             else                                // Open pack
             {
                 inventoryState = true;
                 InventoryPanelController.Instance.UIPanelShow();
                 m_FirstPersonController.enabled = false;
-                //m_GunControllerBase.enabled = false;
+                if (ToolBarPanelController.Instance.CurrentActiveModel != null)
+                    ToolBarPanelController.Instance.CurrentActiveModel.SetActive(false);
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
-                frontSight.SetActive(false);
+                //m_GunControllerBase.enabled = false;
+                //frontSight.SetActive(false);
             }
         }
     }

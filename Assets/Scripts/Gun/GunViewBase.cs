@@ -19,6 +19,7 @@ public abstract class GunViewBase : MonoBehaviour
     private Vector3 endPos;
     private Vector3 endRot;
 
+    private GameObject prefab_FrontSight;                                 // Front sight prefab
     private Transform frontSight;                                         // Front sight UI
     private Transform gunPoint;                                           // Muzzle
 
@@ -41,7 +42,9 @@ public abstract class GunViewBase : MonoBehaviour
         m_Transform = gameObject.GetComponent<Transform>();
         m_Animator = gameObject.GetComponent<Animator>();
         m_EnvCamera = GameObject.Find("EnvCamera").GetComponent<Camera>();
-        frontSight = GameObject.Find("FrontSight").GetComponent<Transform>();
+
+        prefab_FrontSight = Resources.Load<GameObject>("Gun/FrontSight");
+        frontSight = GameObject.Instantiate<GameObject>(prefab_FrontSight, GameObject.Find("MainPanel").GetComponent<Transform>()).GetComponent<Transform>();
 
         Init();
         InitHoldPoseValue();
@@ -50,6 +53,29 @@ public abstract class GunViewBase : MonoBehaviour
 
     // Initialize all components
     protected abstract void Init();
+
+    private void OnEnable()
+    {
+        ShowFrontSight();
+    }
+
+    private void OnDisable()
+    {
+        HideFrontSight();
+    }
+
+    private void ShowFrontSight()
+    {
+        frontSight.gameObject.SetActive(true);
+    }
+
+    private void HideFrontSight()
+    {
+        if(frontSight != null)
+        {
+            frontSight.gameObject.SetActive(false);
+        }
+    }
 
     // Aim
     public void EnterHoldPose(float time = 0.2f, int fov = 40)

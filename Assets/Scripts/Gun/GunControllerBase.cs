@@ -133,6 +133,11 @@ public abstract class GunControllerBase : MonoBehaviour
         }
     }
 
+    public void Holster()
+    {
+        m_GunViewBase.M_Animator.SetTrigger("Holster");
+    } 
+
     // Delay
     protected IEnumerator Delay(ObjectPool pool, GameObject obj, float time)
     {
