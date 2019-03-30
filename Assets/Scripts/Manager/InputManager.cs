@@ -8,7 +8,7 @@ public class InputManager : MonoBehaviour
     private bool inventoryState = false;
 
     private FirstPersonController m_FirstPersonController;
-    private GunControllerBase m_GunControllerBase;
+    //private GunControllerBase m_GunControllerBase;
     private GameObject frontSight;
 
     private void Start()
@@ -26,7 +26,7 @@ public class InputManager : MonoBehaviour
     private void FindInit()
     {
         m_FirstPersonController = GameObject.Find("FPSController").GetComponent<FirstPersonController>();
-        m_GunControllerBase = GameObject.Find("FPSController/PersonCamera/Shotgun").GetComponent<GunControllerBase>();
+        //m_GunControllerBase = GameObject.Find("FPSController/PersonCamera/Shotgun").GetComponent<GunControllerBase>();
         frontSight = GameObject.Find("Canvas/MainPanel/FrontSight");
     }
 
@@ -40,7 +40,7 @@ public class InputManager : MonoBehaviour
                 inventoryState = false;
                 InventoryPanelController.Instance.UIPanelHide();
                 m_FirstPersonController.enabled = true;
-                m_GunControllerBase.enabled = true;
+                //m_GunControllerBase.enabled = true;
                 frontSight.SetActive(true);
             }
             else                                // Open pack
@@ -48,7 +48,7 @@ public class InputManager : MonoBehaviour
                 inventoryState = true;
                 InventoryPanelController.Instance.UIPanelShow();
                 m_FirstPersonController.enabled = false;
-                m_GunControllerBase.enabled = false;
+                //m_GunControllerBase.enabled = false;
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
                 frontSight.SetActive(false);

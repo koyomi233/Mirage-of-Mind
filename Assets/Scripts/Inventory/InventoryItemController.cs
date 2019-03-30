@@ -61,6 +61,12 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
         }
     }
 
+    // Update the UI value
+    public void UpdateUI(float value)
+    {
+        m_Bar.fillAmount = value;
+    }
+
     // Initialization of Find
     private void FindInit()
     {

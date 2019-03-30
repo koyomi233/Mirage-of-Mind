@@ -21,5 +21,7 @@ public class WoodenSpear : ThrowWeaponBase
     {
         GameObject spear = GameObject.Instantiate<GameObject>(m_WoodenSpearView.Spear, m_WoodenSpearView.GunPoint.position, m_WoodenSpearView.GunPoint.rotation);
         spear.GetComponent<Arrow>().Shoot(m_WoodenSpearView.GunPoint.forward, 2000, Damage);
+        // Decrease durable
+        Durable--;
     }
 }

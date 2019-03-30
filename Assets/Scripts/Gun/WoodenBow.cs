@@ -23,5 +23,7 @@ public class WoodenBow : ThrowWeaponBase
     {
         GameObject arrow = GameObject.Instantiate<GameObject>(m_WoodenBowView.Arrow, m_WoodenBowView.GunPoint.position, m_WoodenBowView.GunPoint.rotation);
         arrow.GetComponent<Arrow>().Shoot(m_WoodenBowView.GunPoint.forward, 1000, Damage);
+        // Decrease durable
+        Durable--;
     }
 }

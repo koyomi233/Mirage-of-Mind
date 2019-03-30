@@ -12,6 +12,9 @@ public abstract class GunControllerBase : MonoBehaviour
     [SerializeField] private int id;
     [SerializeField] private int damage;
     [SerializeField] private int durable;
+    private float durable_2;
+
+    private GameObject toolBarIcon;
 
     // Component
     private AudioClip audio;
@@ -19,6 +22,8 @@ public abstract class GunControllerBase : MonoBehaviour
     private GunViewBase m_GunViewBase;
     private Ray ray;
     private RaycastHit hit;
+
+    private bool canShoot = true;
 
     // Field attribute
     public GunType GunWeaponType { get { return gunWeaponType; } set { gunWeaponType = value; } }
@@ -38,7 +43,7 @@ public abstract class GunControllerBase : MonoBehaviour
         }
     }
 
-    private bool canShoot = true;
+    public GameObject ToolBarIcon { get { return toolBarIcon; } set { toolBarIcon = value; } }
 
     // Component's attribute
     public GunViewBase M_GunViewBase { get { return m_GunViewBase; } set { m_GunViewBase = value; } }
@@ -49,6 +54,7 @@ public abstract class GunControllerBase : MonoBehaviour
 
     protected virtual void Start()
     {
+        durable_2 = Durable;
         m_GunViewBase = gameObject.GetComponent<GunViewBase>();
         LoadAudio();
         Init();
@@ -58,6 +64,11 @@ public abstract class GunControllerBase : MonoBehaviour
     {
         MouseControl();
         ShootReady();
+    }
+
+    private void UpdateUI()
+    {
+        toolBarIcon.GetComponent<InventoryItemController>().UpdateUI(Durable / durable_2);
     }
 
     // Play sound
@@ -91,6 +102,7 @@ public abstract class GunControllerBase : MonoBehaviour
         m_GunViewBase.M_Animator.SetTrigger("Fire");
         PlayAudio();
         Shoot();
+        UpdateUI();
     }
     protected void MouseButtonRightDown()
     {

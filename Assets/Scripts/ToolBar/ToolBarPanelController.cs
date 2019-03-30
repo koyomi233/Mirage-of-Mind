@@ -12,6 +12,9 @@ public class ToolBarPanelController : MonoBehaviour
 
     private List<GameObject> slotList = null;                   // Store all slots in bar
     private GameObject currentActive = null;                    // Store the active slot
+    private GameObject currentActiveModel = null;               // Store the active model
+
+    private Dictionary<GameObject, GameObject> toolBarDic = null;
 
     private void Awake()
     {
@@ -30,6 +33,7 @@ public class ToolBarPanelController : MonoBehaviour
         m_ToolBarPanelModel = gameObject.GetComponent<ToolBarPanelModel>();
 
         slotList = new List<GameObject>();
+        toolBarDic = new Dictionary<GameObject, GameObject>();
     }
 
     // Generate all slots
@@ -63,5 +67,33 @@ public class ToolBarPanelController : MonoBehaviour
         }
         currentActive = slotList[keyNum];
         currentActive.GetComponent<ToolBarSlotController>().SlotClick();
+        CallGunFactory();
+    }
+
+    // Call GunFactory class
+    private void CallGunFactory()
+    {
+        Transform m_temp = currentActive.GetComponent<Transform>().Find("InventoryItem");
+        if(m_temp != null)
+        {
+            // Hide the current model
+            if(currentActiveModel != null)
+            {
+                currentActiveModel.SetActive(false);
+            }
+            GameObject temp = null;
+            toolBarDic.TryGetValue(m_temp.gameObject, out temp);
+            if(temp == null)
+            {
+                temp = GunFactory.Instance.CreateGun(m_temp.GetComponent<Image>().sprite.name, m_temp.gameObject);
+                toolBarDic.Add(m_temp.gameObject, temp);
+            }
+            else
+            {
+                if(currentActive.GetComponent<ToolBarSlotController>().SelfState)
+                    temp.SetActive(true);
+            }
+            currentActiveModel = temp;
+        }
     }
 }

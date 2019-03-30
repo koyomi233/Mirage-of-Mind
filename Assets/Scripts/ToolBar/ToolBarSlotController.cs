@@ -13,6 +13,8 @@ public class ToolBarSlotController : MonoBehaviour
 
     private bool selfState = false;                                // State of the slot(true: active, false: normal)
 
+    public bool SelfState { get { return selfState; } }
+
     private void Awake()
     {
         m_Transform = gameObject.GetComponent<Transform>();

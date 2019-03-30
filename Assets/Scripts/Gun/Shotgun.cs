@@ -42,6 +42,8 @@ public class Shotgun : GunWeaponBase
     protected override void Shoot()
     {
         StartCoroutine("CreateBullets");
+        // Decrease durable
+        Durable--;
     }
 
     private void PlayEffectAudio()
