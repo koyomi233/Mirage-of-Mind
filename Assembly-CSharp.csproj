@@ -74,6 +74,8 @@
     <Compile Include="Assets\Scripts\Crafting\CraftingSlotController.cs" />
     <Compile Include="Assets\Scripts\Crafting\CraftingTabItemController.cs" />
     <Compile Include="Assets\Scripts\Demo\Demo_17.cs" />
+    <Compile Include="Assets\Scripts\Env\StoneManager.cs" />
+    <Compile Include="Assets\Scripts\Env\TreeManager.cs" />
     <Compile Include="Assets\Scripts\Gun\Arrow.cs" />
     <Compile Include="Assets\Scripts\Gun\AssaultRifle.cs" />
     <Compile Include="Assets\Scripts\Gun\AssaultRifleView.cs" />
