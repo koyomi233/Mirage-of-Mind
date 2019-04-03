@@ -32,6 +32,6 @@ public class ShotgunView : GunViewBase
         StartPos = M_Transform.localPosition;
         StartRot = M_Transform.localRotation.eulerAngles;
         EndPos = new Vector3(-0.14f, -1.78f, -0.03f);
-        EndRot = new Vector3(0, 10, -0.25f);
+        EndRot = new Vector3(0, 0, -0.49f);
     }
 }

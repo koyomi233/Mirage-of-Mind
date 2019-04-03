@@ -22,7 +22,7 @@ public class WoodenBowView : GunViewBase
     {
         StartPos = M_Transform.localPosition;
         StartRot = M_Transform.localRotation.eulerAngles;
-        EndPos = new Vector3(0.75f, -1.2f, 0.22f);
-        EndRot = new Vector3(2.5f, -8, 35);
+        EndPos = new Vector3(0.8f, -1.2f, 0.22f);
+        EndRot = new Vector3(-0.49f, -6, 34.3f);
     }
 }
