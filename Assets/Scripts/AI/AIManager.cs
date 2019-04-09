@@ -16,6 +16,10 @@ public class AIManager : MonoBehaviour
     private GameObject prefab_Cannibal;
     private AIManagerType aiManagerType = AIManagerType.NULL;
     private List<GameObject> AIList = new List<GameObject>();
+    private Transform[] posTransform;
+    private List<Vector3> posList = new List<Vector3>();
+
+    private int index = 0;
 
     public AIManagerType AIManagerType { get { return aiManagerType; } set { aiManagerType = value; } }
 
@@ -24,6 +28,12 @@ public class AIManager : MonoBehaviour
         m_Transform = gameObject.GetComponent<Transform>();
         prefab_Boar = Resources.Load<GameObject>("AI/Boar");
         prefab_Cannibal = Resources.Load<GameObject>("AI/Cannibal");
+        posTransform = m_Transform.GetComponentsInChildren<Transform>(true);
+
+        for (int i = 1; i < posTransform.Length; i++)
+        {
+            posList.Add(posTransform[i].position);
+        }
 
         CreateAIByEnum();
     }
@@ -45,6 +55,8 @@ public class AIManager : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             GameObject ai = GameObject.Instantiate<GameObject>(prefab_AI, m_Transform.position, Quaternion.identity, m_Transform);
+            ai.GetComponent<AI>().Dir = posList[i];
+            ai.GetComponent<AI>().PosList = posList;
             AIList.Add(ai);
         }
     }
@@ -67,6 +79,13 @@ public class AIManager : MonoBehaviour
         {
             ai = GameObject.Instantiate<GameObject>(prefab_Cannibal, m_Transform.position, Quaternion.identity, m_Transform);
         }
+
+        ai.GetComponent<AI>().Dir = posList[index];
+        ai.GetComponent<AI>().PosList = posList;
+
+        index++;
+        index = index % posList.Count;
+
         AIList.Add(ai);
     }
 }
