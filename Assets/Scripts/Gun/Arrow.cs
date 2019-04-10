@@ -7,16 +7,19 @@ public class Arrow : BulletBase
     private BoxCollider m_BoxCollider;
     private Transform m_Pivot;
 
+    private RaycastHit hit;
+
     public override void Init()
     {
         m_BoxCollider = gameObject.GetComponent<BoxCollider>();
         m_Pivot = M_Transform.Find("Pivot").GetComponent<Transform>();
     }
 
-    public override void Shoot(Vector3 dir, int force, int damage)
+    public override void Shoot(Vector3 dir, int force, int damage, RaycastHit hit)
     {
         M_Rigidbody.AddForce(dir * force);
         this.Damage = damage;
+        this.hit = hit;
     }
 
     public override void CollisionEnter(Collision collision)
@@ -27,6 +30,16 @@ public class Arrow : BulletBase
             GameObject.Destroy(M_Rigidbody);
             GameObject.Destroy(m_BoxCollider);
             collision.collider.GetComponent<BulletMark>().HP -= Damage;
+            M_Transform.SetParent(collision.gameObject.transform);
+            StartCoroutine("TailAnimation", m_Pivot);
+        }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("AI"))
+        {
+            GameObject.Destroy(M_Rigidbody);
+            GameObject.Destroy(m_BoxCollider);
+            collision.collider.GetComponentInParent<AI>().Life -= Damage;
+            collision.collider.GetComponentInParent<AI>().PlayerEffect(hit);
             M_Transform.SetParent(collision.gameObject.transform);
             StartCoroutine("TailAnimation", m_Pivot);
         }

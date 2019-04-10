@@ -18,27 +18,43 @@ public enum AIState
 public class AI : MonoBehaviour
 {
     private Transform m_Transform;
+    private Transform playerTransform;
     private NavMeshAgent m_NavMeshAgent;
     private Animator m_Animator;
-    private Transform playerTransform;
+    private GameObject prefab_Effect;
 
     private Vector3 dir;
     private List<Vector3> posList = new List<Vector3>();
 
     private AIState m_AIState;
 
+    private int life;
+    private int attack;
+
     public Vector3 Dir { get { return dir; } set { dir = value; } }
     public List<Vector3> PosList { get { return posList; } set { posList = value; } }
-
     public AIState M_AIState { get { return m_AIState; } set { m_AIState = value; } } 
+    public int Life {
+        get { return life; }
+        set {
+            life = value;
+            if(life <= 0)
+            {
+                ToggleState(AIState.DEATH);
+            }
+            HitNormal();
+        }
+    }
+    public int Attack { get { return attack; } set { attack = value; } }
 
-    private void Start()
+    private void Awake()
     {
         m_Transform = gameObject.GetComponent<Transform>();
         m_NavMeshAgent = gameObject.GetComponent<NavMeshAgent>();
         m_NavMeshAgent.SetDestination(dir);
         m_Animator = gameObject.GetComponent<Animator>();
         playerTransform = GameObject.Find("FPSController").GetComponent<Transform>();
+        prefab_Effect = Resources.Load<GameObject>("Effects/Gun/Bullet Impact FX_Flesh");
 
         m_AIState = AIState.IDLE;
     }
@@ -181,6 +197,7 @@ public class AI : MonoBehaviour
         m_Animator.SetBool("Run", true);
         m_AIState = AIState.ENTERRUN;
         m_NavMeshAgent.speed = 2;
+        m_NavMeshAgent.enabled = true;
         m_NavMeshAgent.SetDestination(playerTransform.position);
     }
 
@@ -196,13 +213,13 @@ public class AI : MonoBehaviour
     {
         m_Animator.SetBool("Attack", true);
         m_AIState = AIState.ENTERATTACK;
-        //m_NavMeshAgent.enabled = false;
+        m_NavMeshAgent.enabled = false;
     }
 
     private void ExistAttackState()
     {
         m_Animator.SetBool("Attack", false);
-        //m_NavMeshAgent.enabled = true;
+        m_NavMeshAgent.enabled = true;
         ToggleState(AIState.ENTERRUN); 
     }
     
@@ -214,5 +231,11 @@ public class AI : MonoBehaviour
     private void HitNormal()
     {
         m_Animator.SetTrigger("HitNormal");
+    }
+
+    public void PlayerEffect(RaycastHit hit)
+    {
+        GameObject blood = GameObject.Instantiate<GameObject>(prefab_Effect, hit.point, Quaternion.LookRotation(hit.normal));
+        GameObject.Destroy(blood, 3);
     }
 }

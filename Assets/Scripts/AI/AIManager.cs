@@ -57,6 +57,9 @@ public class AIManager : MonoBehaviour
             GameObject ai = GameObject.Instantiate<GameObject>(prefab_AI, m_Transform.position, Quaternion.identity, m_Transform);
             ai.GetComponent<AI>().Dir = posList[i];
             ai.GetComponent<AI>().PosList = posList;
+            ai.GetComponent<AI>().Life = 300;
+            ai.GetComponent<AI>().Attack = 100;
+
             AIList.Add(ai);
         }
     }
@@ -82,6 +85,8 @@ public class AIManager : MonoBehaviour
 
         ai.GetComponent<AI>().Dir = posList[index];
         ai.GetComponent<AI>().PosList = posList;
+        ai.GetComponent<AI>().Life = 600;
+        ai.GetComponent<AI>().Attack = 100;
 
         index++;
         index = index % posList.Count;

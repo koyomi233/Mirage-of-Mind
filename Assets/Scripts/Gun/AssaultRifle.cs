@@ -70,6 +70,13 @@ public class AssaultRifle : GunWeaponBase
                 Hit.collider.GetComponent<BulletMark>().CreateBulletMark(Hit);
                 Hit.collider.GetComponent<BulletMark>().HP -= Damage;
             }
+            else if (Hit.collider.GetComponentInParent<AI>() != null)
+            {
+                Hit.collider.GetComponentInParent<AI>().Life -= Damage;
+                Hit.collider.GetComponentInParent<AI>().PlayerEffect(Hit);
+                GameObject bullet = GameObject.Instantiate<GameObject>(m_AssaultRifeView.Bullet, Hit.point, Quaternion.identity);
+                bullet.GetComponent<Transform>().SetParent(Hit.collider.GetComponent<Transform>());
+            }
             else
             {
                 GameObject.Instantiate<GameObject>(m_AssaultRifeView.Bullet, Hit.point, Quaternion.identity);

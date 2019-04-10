@@ -22,7 +22,7 @@ public class WoodenBow : ThrowWeaponBase
     protected override void Shoot()
     {
         GameObject arrow = GameObject.Instantiate<GameObject>(m_WoodenBowView.Arrow, m_WoodenBowView.GunPoint.position, m_WoodenBowView.GunPoint.rotation);
-        arrow.GetComponent<Arrow>().Shoot(m_WoodenBowView.GunPoint.forward, 1000, Damage);
+        arrow.GetComponent<Arrow>().Shoot(m_WoodenBowView.GunPoint.forward, 1000, Damage, Hit);
         // Decrease durable
         Durable--;
     }

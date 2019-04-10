@@ -5,18 +5,18 @@ using UnityEngine;
 public class ShotgunBullet : BulletBase
 {
     private RaycastHit hit;
+    private Ray ray;
 
     public override void Init()
     {
         Invoke("KillSelf", 3);
     }
 
-    public override void Shoot(Vector3 dir, int force, int damage)
+    public override void Shoot(Vector3 dir, int force, int damage, RaycastHit hit)
     {
         M_Rigidbody.AddForce(dir * force);
         this.Damage = damage;
-        Ray ray = new Ray(M_Transform.position, dir);
-        if (Physics.Raycast(ray, out hit, 1000, 1 << 11)) { }
+        ray = new Ray(M_Transform.position, dir);
     }
 
     public override void CollisionEnter(Collision collision)
@@ -24,9 +24,18 @@ public class ShotgunBullet : BulletBase
         M_Rigidbody.Sleep();
         if (collision.collider.GetComponent<BulletMark>() != null)
         {
+            if (Physics.Raycast(ray, out hit, 1000, 1 << 11)) { }
             collision.collider.GetComponent<BulletMark>().CreateBulletMark(hit);
             collision.collider.GetComponent<BulletMark>().HP -= Damage;
         }
+
+        if(collision.collider.GetComponentInParent<AI>() != null)
+        {
+            if (Physics.Raycast(ray, out hit, 1000, 1 << 12)) { }
+            collision.collider.GetComponentInParent<AI>().Life -= Damage;
+            collision.collider.GetComponentInParent<AI>().PlayerEffect(hit);
+        }
+
         GameObject.Destroy(gameObject);
     }
 }
