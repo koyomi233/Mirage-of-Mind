@@ -1,55 +1,88 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class PlayerController : MonoBehaviour
 {
     private Transform m_Transform;
-    private GameObject m_BuildingPlan;
-    private GameObject m_WoodSpear;
+    private FirstPersonController FPS;
+    private PlayerInfoPanel m_PlayerInfoPanel;
 
-    private GameObject currentWeapon;
-    private GameObject targetWeapon;
+    [SerializeField] private int hp = 1000;
+    [SerializeField] private int vit = 100;
+    private int index = 0;                  // timekeeper
+
+    public int HP { get { return hp; } set { hp = value; } }
+    public int VIT { get { return vit; } set { vit = value; } }
 
     void Start()
     {
         m_Transform = gameObject.GetComponent<Transform>();
-        m_BuildingPlan = m_Transform.Find("PersonCamera/Building Plan").gameObject;
-        m_WoodSpear = m_Transform.Find("PersonCamera/Wooden Spear").gameObject;
+        FPS = gameObject.GetComponent<FirstPersonController>();
+        m_PlayerInfoPanel = GameObject.Find("Canvas/MainPanel/PlayerInfoPanel").GetComponent<PlayerInfoPanel>();
 
-        m_WoodSpear.SetActive(false);
-
-        currentWeapon = m_BuildingPlan;
-        targetWeapon = null;
+        StartCoroutine("RestoreVIT");
     }
 
     void Update()
     {
-        // Use map
-        if (Input.GetKeyDown(KeyCode.M))
+        ReduceVIT();
+        Debug.Log("Vitality: " + vit);
+    }
+
+    // HP decline
+    public void ReduceHP(int value)
+    {
+        this.HP -= value;
+    }
+
+    // VIT decline
+    public void ReduceVIT()
+    {
+        if (FPS.M_PlayerState == PlayerState.WALK)
         {
-            targetWeapon = m_BuildingPlan;
-            Changed();
+            index++;
+            if(index >= 20)
+            {
+                this.VIT -= 1;
+                ResetSpeed();
+                index = 0;
+            }
         }
-        // Use spear
-        if (Input.GetKeyDown(KeyCode.K))
+        if(FPS.M_PlayerState == PlayerState.RUN)
         {
-            targetWeapon = m_WoodSpear;
-            Changed();
+            index++;
+            if(index >= 20)
+            {
+                this.VIT -= 2;
+                ResetSpeed();
+                index = 0;
+            }
+        }
+        m_PlayerInfoPanel.SetVIT(this.VIT);
+    }
+
+    private IEnumerator RestoreVIT()
+    {
+        Vector3 tempPos;
+        while (true)
+        {
+            tempPos = m_Transform.position;
+            yield return new WaitForSeconds(1);
+            if (this.VIT <= 95 && m_Transform.position == tempPos)
+            {
+                this.VIT += 5;
+                m_PlayerInfoPanel.SetVIT(this.VIT);
+                ResetSpeed();
+            }
         }
     }
 
-    private void Changed()
+    // Reset the speed of player
+    private void ResetSpeed()
     {
-        currentWeapon.GetComponent<Animator>().SetTrigger("Holster");
-        StartCoroutine("DelayTime");
-    }
-
-    IEnumerator DelayTime()
-    {
-        yield return new WaitForSeconds(1);
-        currentWeapon.SetActive(false);
-        targetWeapon.SetActive(true);
-        currentWeapon = targetWeapon;
+        FPS.M_WalkSpeed = 5 * (this.VIT * 0.01f);
+        FPS.M_RunSpeed = 10 * (this.VIT * 0.01f);
     }
 }
