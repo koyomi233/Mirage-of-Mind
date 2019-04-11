@@ -22,11 +22,13 @@ public class AI : MonoBehaviour
     private NavMeshAgent m_NavMeshAgent;
     private Animator m_Animator;
     private GameObject prefab_Effect;
+    private AIRagdoll m_AIRagdoll = null;
 
     private Vector3 dir;
     private List<Vector3> posList = new List<Vector3>();
 
     private AIState m_AIState;
+    private AIType m_AIType;
 
     private int life;
     private int attack;
@@ -34,6 +36,7 @@ public class AI : MonoBehaviour
     public Vector3 Dir { get { return dir; } set { dir = value; } }
     public List<Vector3> PosList { get { return posList; } set { posList = value; } }
     public AIState M_AIState { get { return m_AIState; } set { m_AIState = value; } } 
+    public AIType M_AIType { get { return m_AIType; } set { m_AIType = value; } }
     public int Life {
         get { return life; }
         set {
@@ -42,7 +45,6 @@ public class AI : MonoBehaviour
             {
                 ToggleState(AIState.DEATH);
             }
-            HitNormal();
         }
     }
     public int Attack { get { return attack; } set { attack = value; } }
@@ -55,6 +57,11 @@ public class AI : MonoBehaviour
         m_Animator = gameObject.GetComponent<Animator>();
         playerTransform = GameObject.Find("FPSController").GetComponent<Transform>();
         prefab_Effect = Resources.Load<GameObject>("Effects/Gun/Bullet Impact FX_Flesh");
+
+        if(m_AIType == AIType.CANNIBAL)
+        {
+            m_AIRagdoll = gameObject.GetComponent<AIRagdoll>();
+        }
 
         m_AIState = AIState.IDLE;
     }
@@ -181,7 +188,16 @@ public class AI : MonoBehaviour
     {
         m_AIState = AIState.DEATH;
         m_NavMeshAgent.isStopped = true;
-        m_Animator.SetTrigger("Death");
+        if(m_AIType == AIType.BOAR)
+        {
+            m_Animator.SetTrigger("Death");
+        }
+        else if(m_AIType == AIType.CANNIBAL)
+        {
+            m_Animator.enabled = false;
+            //m_AIRagdoll.StartRagdoll();
+        }
+        
         StartCoroutine("Death");
     }
 
@@ -237,5 +253,19 @@ public class AI : MonoBehaviour
     {
         GameObject blood = GameObject.Instantiate<GameObject>(prefab_Effect, hit.point, Quaternion.LookRotation(hit.normal));
         GameObject.Destroy(blood, 3);
+    }
+
+    // When head is hit
+    public void HeadHit(int value)
+    {
+        HitHard();
+        Life -= value;
+    }
+
+    // When body is hit
+    public void NormalHit(int value)
+    {
+        HitNormal();
+        Life -= value;
     }
 }

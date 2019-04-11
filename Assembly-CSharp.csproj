@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\AI\AI.cs" />
     <Compile Include="Assets\Scripts\AI\AIManager.cs" />
     <Compile Include="Assets\Scripts\AI\AIManagers.cs" />
+    <Compile Include="Assets\Scripts\AI\AIRagdoll.cs" />
     <Compile Include="Assets\Scripts\Const\GameConst.cs" />
     <Compile Include="Assets\Scripts\Const\GameEnum.cs" />
     <Compile Include="Assets\Scripts\Crafting\CraftingContentController.cs" />

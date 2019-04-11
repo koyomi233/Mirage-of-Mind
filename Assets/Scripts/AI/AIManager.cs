@@ -9,6 +9,13 @@ public enum AIManagerType
     NULL
 }
 
+public enum AIType
+{
+    BOAR,
+    CANNIBAL,
+    NULL
+}
+
 public class AIManager : MonoBehaviour
 {
     private Transform m_Transform;
@@ -42,15 +49,15 @@ public class AIManager : MonoBehaviour
     {
         if(aiManagerType == global::AIManagerType.BOAR)
         {
-            CreateAI(prefab_Boar);
+            CreateAI(prefab_Boar, AIType.BOAR);
         }
         else if(aiManagerType == global::AIManagerType.CANNIBAL)
         {
-            CreateAI(prefab_Cannibal);
+            CreateAI(prefab_Cannibal, AIType.CANNIBAL);
         }
     }
 
-    private void CreateAI(GameObject prefab_AI)
+    private void CreateAI(GameObject prefab_AI, AIType aiType)
     {
         for (int i = 0; i < 5; i++)
         {
@@ -59,6 +66,7 @@ public class AIManager : MonoBehaviour
             ai.GetComponent<AI>().PosList = posList;
             ai.GetComponent<AI>().Life = 300;
             ai.GetComponent<AI>().Attack = 100;
+            ai.GetComponent<AI>().M_AIType = aiType;
 
             AIList.Add(ai);
         }
@@ -77,10 +85,12 @@ public class AIManager : MonoBehaviour
         if (aiManagerType == global::AIManagerType.BOAR)
         {
             ai = GameObject.Instantiate<GameObject>(prefab_Boar, m_Transform.position, Quaternion.identity, m_Transform);
+            ai.GetComponent<AI>().M_AIType = AIType.BOAR;
         }
         else if (aiManagerType == global::AIManagerType.CANNIBAL)
         {
             ai = GameObject.Instantiate<GameObject>(prefab_Cannibal, m_Transform.position, Quaternion.identity, m_Transform);
+            ai.GetComponent<AI>().M_AIType = AIType.CANNIBAL;
         }
 
         ai.GetComponent<AI>().Dir = posList[index];

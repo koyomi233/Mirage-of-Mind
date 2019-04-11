@@ -72,10 +72,16 @@ public class AssaultRifle : GunWeaponBase
             }
             else if (Hit.collider.GetComponentInParent<AI>() != null)
             {
-                Hit.collider.GetComponentInParent<AI>().Life -= Damage;
+                if (Hit.collider.gameObject.name == "Head")
+                {
+                    Hit.collider.GetComponentInParent<AI>().HeadHit(Damage * 2);
+                }
+                else
+                {
+                    Hit.collider.GetComponentInParent<AI>().NormalHit(Damage);
+                }
+
                 Hit.collider.GetComponentInParent<AI>().PlayerEffect(Hit);
-                GameObject bullet = GameObject.Instantiate<GameObject>(m_AssaultRifeView.Bullet, Hit.point, Quaternion.identity);
-                bullet.GetComponent<Transform>().SetParent(Hit.collider.GetComponent<Transform>());
             }
             else
             {

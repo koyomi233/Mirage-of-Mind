@@ -38,7 +38,16 @@ public class Arrow : BulletBase
         {
             GameObject.Destroy(M_Rigidbody);
             GameObject.Destroy(m_BoxCollider);
-            collision.collider.GetComponentInParent<AI>().Life -= Damage;
+            
+            if (collision.collider.gameObject.name == "Head")
+            {
+                collision.collider.GetComponentInParent<AI>().HeadHit(Damage * 2);
+            }
+            else
+            {
+                collision.collider.GetComponentInParent<AI>().NormalHit(Damage);
+            }
+
             collision.collider.GetComponentInParent<AI>().PlayerEffect(hit);
             M_Transform.SetParent(collision.gameObject.transform);
             StartCoroutine("TailAnimation", m_Pivot);

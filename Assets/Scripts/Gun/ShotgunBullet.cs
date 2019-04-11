@@ -32,7 +32,16 @@ public class ShotgunBullet : BulletBase
         if(collision.collider.GetComponentInParent<AI>() != null)
         {
             if (Physics.Raycast(ray, out hit, 1000, 1 << 12)) { }
-            collision.collider.GetComponentInParent<AI>().Life -= Damage;
+
+            if (collision.collider.gameObject.name == "Head")
+            {
+                collision.collider.GetComponentInParent<AI>().HeadHit(Damage * 2);
+            }
+            else
+            {
+                collision.collider.GetComponentInParent<AI>().NormalHit(Damage);
+            }
+
             collision.collider.GetComponentInParent<AI>().PlayerEffect(hit);
         }
 
