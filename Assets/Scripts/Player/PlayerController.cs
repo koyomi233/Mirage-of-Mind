@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private Transform m_Transform;
     private FirstPersonController FPS;
     private PlayerInfoPanel m_PlayerInfoPanel;
+    private BloodScreenPanel m_BloodScreenPanel;
 
     [SerializeField] private int hp = 1000;
     [SerializeField] private int vit = 100;
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour
         m_Transform = gameObject.GetComponent<Transform>();
         FPS = gameObject.GetComponent<FirstPersonController>();
         m_PlayerInfoPanel = GameObject.Find("Canvas/MainPanel/PlayerInfoPanel").GetComponent<PlayerInfoPanel>();
+        m_BloodScreenPanel = GameObject.Find("Canvas/MainPanel/BloodScreen").GetComponent<BloodScreenPanel>();
 
         StartCoroutine("RestoreVIT");
     }
@@ -35,6 +37,8 @@ public class PlayerController : MonoBehaviour
     public void ReduceHP(int value)
     {
         this.HP -= value;
+        m_PlayerInfoPanel.SetHP(this.HP);
+        m_BloodScreenPanel.SetImageAlpha();
     }
 
     // VIT decline

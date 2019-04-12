@@ -19,6 +19,7 @@ public class AI : MonoBehaviour
 {
     private Transform m_Transform;
     private Transform playerTransform;
+    private PlayerController m_PlayerController;
     private NavMeshAgent m_NavMeshAgent;
     private Animator m_Animator;
     private GameObject prefab_Effect;
@@ -30,8 +31,8 @@ public class AI : MonoBehaviour
     private AIState m_AIState;
     private AIType m_AIType;
 
-    private int life;
-    private int attack;
+    [SerializeField] private int life;
+    [SerializeField] private int attack;
 
     public Vector3 Dir { get { return dir; } set { dir = value; } }
     public List<Vector3> PosList { get { return posList; } set { posList = value; } }
@@ -56,6 +57,7 @@ public class AI : MonoBehaviour
         m_NavMeshAgent.SetDestination(dir);
         m_Animator = gameObject.GetComponent<Animator>();
         playerTransform = GameObject.Find("FPSController").GetComponent<Transform>();
+        m_PlayerController = playerTransform.GetComponent<PlayerController>();
         prefab_Effect = Resources.Load<GameObject>("Effects/Gun/Bullet Impact FX_Flesh");
 
         if(m_AIType == AIType.CANNIBAL)
@@ -267,5 +269,11 @@ public class AI : MonoBehaviour
     {
         HitNormal();
         Life -= value;
+    }
+
+    // Attack player
+    private void AttackPlayer()
+    {
+        m_PlayerController.ReduceHP(this.Attack);
     }
 }
