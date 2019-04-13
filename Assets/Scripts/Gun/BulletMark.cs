@@ -17,12 +17,10 @@ public class BulletMark : MonoBehaviour
     private Texture2D m_MainTextureBackup_1;            // Back up model texture
     private Texture2D m_MainTextureBackup_2;
     private GameObject prefab_Effect;                   // Effect for bullet
-
-    [SerializeField] private MaterialType materialType;                  // Material of the model
-
     private Queue<Vector2> bulletMarkQuene = null;      // Queue of bullet mark
 
-    [SerializeField] private int hp;                    // Test
+    [SerializeField] private MaterialType materialType; // Material of the model
+    [SerializeField] private int hp;                    // HP for the object
 
     public int HP
     {
@@ -85,6 +83,9 @@ public class BulletMark : MonoBehaviour
 
     public void CreateBulletMark(RaycastHit hit)
     {
+        // Play hit audio
+        PlayAudios(hit);
+
         // UV coordinate
         Vector2 uv = hit.textureCoord;
         bulletMarkQuene.Enqueue(uv);
@@ -163,5 +164,22 @@ public class BulletMark : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         pool.AddObject(obj);
+    }
+
+    // Play material audio
+    private void PlayAudios(RaycastHit hit)
+    {
+        switch (materialType)
+        {
+            case MaterialType.Metal:
+                AudioManager.Instance.PlayAudioClipByName(ClipName.BulletImpactMetal, hit.point);
+                break;
+            case MaterialType.Stone:
+                AudioManager.Instance.PlayAudioClipByName(ClipName.BulletImpactStone, hit.point);
+                break;
+            case MaterialType.Wood:
+                AudioManager.Instance.PlayAudioClipByName(ClipName.BulletImpactWood, hit.point);
+                break;
+        }
     }
 }

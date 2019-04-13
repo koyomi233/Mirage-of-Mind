@@ -3160,6 +3160,7 @@ GameObject:
   - component: {fileID: 689890192}
   - component: {fileID: 689890191}
   - component: {fileID: 689890190}
+  - component: {fileID: 689890193}
   m_Layer: 5
   m_Name: BloodScreen
   m_TagString: Untagged
@@ -3235,6 +3236,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 689890188}
   m_CullTransparentMesh: 0
+--- !u!225 &689890193
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 689890188}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &691061811
 GameObject:
   m_ObjectHideFlags: 0
@@ -7829,6 +7842,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1763512095}
   - component: {fileID: 1763512094}
+  - component: {fileID: 1763512096}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -7862,6 +7876,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1763512096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763512093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d76b4919b7b33149abc764eb1170f2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1773564839
 GameObject:
   m_ObjectHideFlags: 0

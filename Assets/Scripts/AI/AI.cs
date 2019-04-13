@@ -193,11 +193,13 @@ public class AI : MonoBehaviour
         if(m_AIType == AIType.BOAR)
         {
             m_Animator.SetTrigger("Death");
+            AudioManager.Instance.PlayAudioClipByName(ClipName.BoarDeath, m_Transform.position);
         }
         else if(m_AIType == AIType.CANNIBAL)
         {
             m_Animator.enabled = false;
             //m_AIRagdoll.StartRagdoll();
+            AudioManager.Instance.PlayAudioClipByName(ClipName.ZombieDeath, m_Transform.position);
         }
         
         StartCoroutine("Death");
@@ -261,19 +263,41 @@ public class AI : MonoBehaviour
     public void HeadHit(int value)
     {
         HitHard();
-        Life -= value;
+        InjuredAudio();
+        this.Life -= value;
     }
 
     // When body is hit
     public void NormalHit(int value)
     {
         HitNormal();
-        Life -= value;
+        InjuredAudio();
+        this.Life -= value;
     }
 
-    // Attack player
+    // Play audio when get injured
+    private void InjuredAudio()
+    {
+        if (m_AIType == AIType.CANNIBAL)
+        {
+            AudioManager.Instance.PlayAudioClipByName(ClipName.ZombieInjured, m_Transform.position);
+        }
+        else if (m_AIType == AIType.BOAR)
+        {
+            AudioManager.Instance.PlayAudioClipByName(ClipName.BoarInjured, m_Transform.position);
+        }
+    }
+
+    // HP decline when AI attack player, and play the audio
     private void AttackPlayer()
     {
         m_PlayerController.ReduceHP(this.Attack);
+        if (m_AIType == AIType.CANNIBAL)
+        {
+            AudioManager.Instance.PlayAudioClipByName(ClipName.ZombieAttack, m_Transform.position);
+        }else if(m_AIType == AIType.BOAR)
+        {
+            AudioManager.Instance.PlayAudioClipByName(ClipName.BoarAttack, m_Transform.position);
+        }
     }
 }

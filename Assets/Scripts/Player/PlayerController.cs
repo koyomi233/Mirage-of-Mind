@@ -9,10 +9,13 @@ public class PlayerController : MonoBehaviour
     private FirstPersonController FPS;
     private PlayerInfoPanel m_PlayerInfoPanel;
     private BloodScreenPanel m_BloodScreenPanel;
+    private AudioSource m_AudioSource;
 
     [SerializeField] private int hp = 1000;
     [SerializeField] private int vit = 100;
-    private int index = 0;                  // timekeeper
+
+    private int index = 0;                                                // timekeeper
+    private bool breath = false;                                          // Whether start to breath
 
     public int HP { get { return hp; } set { hp = value; } }
     public int VIT { get { return vit; } set { vit = value; } }
@@ -23,6 +26,7 @@ public class PlayerController : MonoBehaviour
         FPS = gameObject.GetComponent<FirstPersonController>();
         m_PlayerInfoPanel = GameObject.Find("Canvas/MainPanel/PlayerInfoPanel").GetComponent<PlayerInfoPanel>();
         m_BloodScreenPanel = GameObject.Find("Canvas/MainPanel/BloodScreen").GetComponent<BloodScreenPanel>();
+        m_AudioSource = AudioManager.Instance.AddAudioSourceComponent(gameObject, ClipName.PlayerBreathingHeavy, false);
 
         StartCoroutine("RestoreVIT");
     }
@@ -37,6 +41,7 @@ public class PlayerController : MonoBehaviour
     public void ReduceHP(int value)
     {
         this.HP -= value;
+        AudioManager.Instance.PlayAudioClipByName(ClipName.PlayerHurt, m_Transform.position);
         m_PlayerInfoPanel.SetHP(this.HP);
         m_BloodScreenPanel.SetImageAlpha();
     }
@@ -64,6 +69,11 @@ public class PlayerController : MonoBehaviour
                 index = 0;
             }
         }
+        if(this.VIT <= 60 && breath == false)
+        {
+            m_AudioSource.Play();
+            breath = true;
+        }
         m_PlayerInfoPanel.SetVIT(this.VIT);
     }
 
@@ -77,6 +87,11 @@ public class PlayerController : MonoBehaviour
             if (this.VIT <= 95 && m_Transform.position == tempPos)
             {
                 this.VIT += 5;
+                if(this.VIT > 60 && breath == true)
+                {
+                    m_AudioSource.Stop();
+                    breath = false;
+                }
                 m_PlayerInfoPanel.SetVIT(this.VIT);
                 ResetSpeed();
             }

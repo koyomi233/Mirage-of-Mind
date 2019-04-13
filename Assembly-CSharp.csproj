@@ -103,6 +103,7 @@
     <Compile Include="Assets\Scripts\Inventory\InventoryPanelController.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryPanelModel.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryPanelView.cs" />
+    <Compile Include="Assets\Scripts\Manager\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Manager\InputManager.cs" />
     <Compile Include="Assets\Scripts\Player\BloodScreenPanel.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
