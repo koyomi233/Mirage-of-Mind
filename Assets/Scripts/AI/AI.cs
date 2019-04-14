@@ -73,21 +73,6 @@ public class AI : MonoBehaviour
         Distance();
         AIFollowPlayer();
         AIAttackPlayer();
-
-        // Test death
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ToggleState(AIState.DEATH);
-        }
-        // Test hit
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            HitHard();
-        }
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            HitNormal();
-        }
     }
 
     // Change destination based on distance between AI and node
@@ -157,8 +142,11 @@ public class AI : MonoBehaviour
     {
         if (Vector3.Distance(m_Transform.position, playerTransform.position) <= 18)
         {
-            // Follow the player
-            ToggleState(AIState.ENTERRUN);
+            if(m_AIState != AIState.DEATH)
+            {
+                // Follow the player
+                ToggleState(AIState.ENTERRUN);
+            }  
         }
         else
         {
@@ -217,7 +205,7 @@ public class AI : MonoBehaviour
         m_Animator.SetBool("Run", true);
         m_AIState = AIState.ENTERRUN;
         m_NavMeshAgent.speed = 2;
-        m_NavMeshAgent.enabled = true;
+        m_NavMeshAgent.isStopped = false;
         m_NavMeshAgent.SetDestination(playerTransform.position);
     }
 
@@ -233,13 +221,13 @@ public class AI : MonoBehaviour
     {
         m_Animator.SetBool("Attack", true);
         m_AIState = AIState.ENTERATTACK;
-        m_NavMeshAgent.enabled = false;
+        m_NavMeshAgent.isStopped = true;
     }
 
     private void ExistAttackState()
     {
         m_Animator.SetBool("Attack", false);
-        m_NavMeshAgent.enabled = true;
+        m_NavMeshAgent.isStopped = false;
         ToggleState(AIState.ENTERRUN); 
     }
     

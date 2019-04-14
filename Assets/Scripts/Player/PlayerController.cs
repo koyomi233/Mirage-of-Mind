@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
+using UnityEngine.SceneManagement;
+
+public delegate void PlayerDeathDelegate();
 
 public class PlayerController : MonoBehaviour
 {
+    public event PlayerDeathDelegate DeathDelegate;
+
     private Transform m_Transform;
     private FirstPersonController FPS;
     private PlayerInfoPanel m_PlayerInfoPanel;
@@ -16,6 +21,7 @@ public class PlayerController : MonoBehaviour
 
     private int index = 0;                                                // timekeeper
     private bool breath = false;                                          // Whether start to breath
+    private bool isDeath = false;                                         // Whether player is dead
 
     public int HP { get { return hp; } set { hp = value; } }
     public int VIT { get { return vit; } set { vit = value; } }
@@ -40,10 +46,18 @@ public class PlayerController : MonoBehaviour
     // HP decline
     public void ReduceHP(int value)
     {
-        this.HP -= value;
-        AudioManager.Instance.PlayAudioClipByName(ClipName.PlayerHurt, m_Transform.position);
-        m_PlayerInfoPanel.SetHP(this.HP);
-        m_BloodScreenPanel.SetImageAlpha();
+        if(isDeath == false)
+        {
+            this.HP -= value;
+            AudioManager.Instance.PlayAudioClipByName(ClipName.PlayerHurt, m_Transform.position);
+            m_PlayerInfoPanel.SetHP(this.HP);
+            m_BloodScreenPanel.SetImageAlpha();
+        }
+        
+        if(this.HP <= 0 && isDeath == false)
+        {
+            PlayerDeath();
+        }
     }
 
     // VIT decline
@@ -103,5 +117,22 @@ public class PlayerController : MonoBehaviour
     {
         FPS.M_WalkSpeed = 5 * (this.VIT * 0.01f);
         FPS.M_RunSpeed = 10 * (this.VIT * 0.01f);
+    }
+
+    private void PlayerDeath()
+    {
+        isDeath = true;
+        AudioManager.Instance.PlayAudioClipByName(ClipName.PlayerDeath, m_Transform.position);
+        m_Transform.GetComponent<FirstPersonController>().enabled = false;
+        GameObject.Find("Managers").GetComponent<InputManager>().enabled = false;
+        DeathDelegate();
+        StartCoroutine("JumpScene");
+    }
+
+    // Jump to reset scene when player is dead
+    private IEnumerator JumpScene()
+    {
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene("ResetScene");
     }
 }

@@ -36,6 +36,7 @@ public class AIManager : MonoBehaviour
         prefab_Boar = Resources.Load<GameObject>("AI/Boar");
         prefab_Cannibal = Resources.Load<GameObject>("AI/Cannibal");
         posTransform = m_Transform.GetComponentsInChildren<Transform>(true);
+        GameObject.Find("FPSController").GetComponent<PlayerController>().DeathDelegate += Death;
 
         for (int i = 1; i < posTransform.Length; i++)
         {
@@ -102,5 +103,14 @@ public class AIManager : MonoBehaviour
         index = index % posList.Count;
 
         AIList.Add(ai);
+    }
+
+    // Kill all AI when game over
+    private void Death()
+    {
+        for(int i = 0; i < AIList.Count; i++)
+        {
+            GameObject.Destroy(AIList[i]);
+        }
     }
 }
