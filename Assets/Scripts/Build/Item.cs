@@ -8,6 +8,7 @@ public class Item : MonoBehaviour
     private Transform m_Transform;
     private Image icon;
     private Image icon_BG;
+    private List<GameObject> materialList = new List<GameObject>();
 
     void Awake()
     {
@@ -29,10 +30,27 @@ public class Item : MonoBehaviour
     public void ShowIconBG()
     {
         icon_BG.enabled = true;
+        ShowAndHide(true);
     }
 
     public void HideIconBG()
     {
         icon_BG.enabled = false;
+        ShowAndHide(false);
+    }
+
+    public void MaterialListAdd(GameObject material)
+    {
+        materialList.Add(material);
+    }
+
+    // Show or hide the material list
+    private void ShowAndHide(bool flag)
+    {
+        if (materialList == null) return;
+        for (int i = 0; i < materialList.Count; i++)
+        {
+            materialList[i].SetActive(flag);
+        }
     }
 }
