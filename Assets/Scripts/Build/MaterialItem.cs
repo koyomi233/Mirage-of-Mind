@@ -14,12 +14,12 @@ public class MaterialItem : MonoBehaviour
         icon_Image = m_Transform.Find("Icon").GetComponent<Image>();
     }
 
-    private void Highlight()
+    public void Highlight()
     {
         icon_Image.color = Color.red;
     }
 
-    private void Normal()
+    public void Normal()
     {
         icon_Image.color = Color.white;
     }

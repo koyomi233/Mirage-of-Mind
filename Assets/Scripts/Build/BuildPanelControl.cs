@@ -13,17 +13,27 @@ public class BuildPanelControl : MonoBehaviour
     private List<Sprite> icons = new List<Sprite>();
 
     private bool showUI = true;
-    private List<Item> itemList = new List<Item>();
-    private float scrollNum = 90000.0f;                                    // Record the number of scroll number
+    private List<Item> itemList = new List<Item>(); 
+
+    // Main menu (Item)
     private int index = 0;
     private Item currentItem = null;
     private Item targetItem = null;
+    private float scrollNum = 90000.0f;                                    // Record the number of scroll number
+
+    // Secondary menu (Material)
+    private int index_Material = 0;
+    private MaterialItem currentMaterial = null;
+    private MaterialItem targetMaterial = null;
+    private float scrollNum_Material = 0.0f;                                    // Record the number of scroll number
 
     private string[] itemNames = new string[] { "", "[Others]", "[Roof]", "[Stairs]", "[Window]", "[Door]", "[Wall]", "[Floor]", "[Foundation]" };
     private List<Sprite[]> materialIcons = new List<Sprite[]>();
     private int zIndex = 20;                                               // Initialized rotation of material UI 
 
     private List<string[]> materialIconName = new List<string[]>();
+
+    private bool isItemControl = true;                                     // Control item or material
 
     private void Start()
     {
@@ -38,15 +48,39 @@ public class BuildPanelControl : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
-            ShowOrHidePanel();
+            if(isItemControl == false)
+            {
+                currentMaterial.Normal();
+                isItemControl = true;
+            }
+            else
+            {
+                ShowOrHidePanel();
+            }
         }
 
-        if (showUI)
+        // Mouse ScrollWheel for main menu
+        if (showUI && isItemControl)
         {
             if (Input.GetAxis("Mouse ScrollWheel") != 0)
             {
-                MouseScrollWheel();
+                MouseScrollWheelItem();
             }
+        }
+
+        // Mouse ScrollWheel for secondary menu
+        if (showUI && isItemControl == false)
+        {
+            if (Input.GetAxis("Mouse ScrollWheel") != 0)
+            {
+                MouseScrollWheelMaterial();
+            }
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (targetItem.materialList.Count == 0) return;
+            isItemControl = false;
         }
     }
 
@@ -90,13 +124,13 @@ public class BuildPanelControl : MonoBehaviour
     {
         materialIconName.Add(null);
         materialIconName.Add(new string[] { "Ceiling Light", "Pillar Wood", "Wooden Ladder" });
-        materialIconName.Add(new string[] { "", "Roof Metal", "" });
-        materialIconName.Add(new string[] { "Stairs Wood", "L Shaped Stairs Wood", "" });
-        materialIconName.Add(new string[] { "", "Window Wood", "" });
-        materialIconName.Add(new string[] { "", "Wooden Door", "" });
+        materialIconName.Add(new string[] { "Roof Metal" });
+        materialIconName.Add(new string[] { "Stairs Wood", "L Shaped Stairs Wood" });
+        materialIconName.Add(new string[] { "Window Wood" });
+        materialIconName.Add(new string[] { "Wooden Door" });
         materialIconName.Add(new string[] { "Wall Wood", "Doorway Wood", "Window Frame Wood" });
-        materialIconName.Add(new string[] { "", "Floor Wood", "" });
-        materialIconName.Add(new string[] { "", "Platform Wood", "" });
+        materialIconName.Add(new string[] { "Floor Wood" });
+        materialIconName.Add(new string[] { "Platform Wood" });
 
     }
 
@@ -149,13 +183,14 @@ public class BuildPanelControl : MonoBehaviour
         }
     }
 
-    // Mouse scroll wheel operation
-    private void MouseScrollWheel()
+    // Mouse scroll wheel operation for main menu
+    private void MouseScrollWheelItem()
     {
         scrollNum += Input.GetAxis("Mouse ScrollWheel") * 5;
         index = Mathf.Abs((int)scrollNum);
 
         targetItem = itemList[index % itemList.Count];
+
         if (targetItem != currentItem)
         {
             targetItem.ShowIconBG();
@@ -165,9 +200,37 @@ public class BuildPanelControl : MonoBehaviour
         }
     }
 
+    // Mouse scroll wheel operation for secondary menu
+    private void MouseScrollWheelMaterial()
+    {
+        scrollNum_Material += Input.GetAxis("Mouse ScrollWheel") * 5;
+        index_Material = Mathf.Abs((int)scrollNum_Material);
+
+        targetItem = itemList[index % itemList.Count];
+        targetMaterial = targetItem.materialList[index_Material % targetItem.materialList.Count].GetComponent<MaterialItem>();
+
+        if (targetMaterial != currentMaterial)
+        {
+            targetMaterial.Highlight();
+            if(currentMaterial != null)
+            {
+                currentMaterial.Normal();
+            }
+            currentMaterial = targetMaterial;
+            SetTextValueMaterial();
+        }
+    }
+
+    // Set the content of items
     private void SetTextValue()
     {
         itemName.text = itemNames[index % itemNames.Length];
+    }
+
+    // Set the content of materials
+    private void SetTextValueMaterial()
+    {
+        itemName.text = materialIconName[index % itemList.Count][index_Material % targetItem.materialList.Count];
     }
 
     // Load a particular material icon by name

@@ -8,7 +8,7 @@ public class Item : MonoBehaviour
     private Transform m_Transform;
     private Image icon;
     private Image icon_BG;
-    private List<GameObject> materialList = new List<GameObject>();
+    public List<GameObject> materialList = new List<GameObject>();
 
     void Awake()
     {
