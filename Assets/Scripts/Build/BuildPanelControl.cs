@@ -25,22 +25,35 @@ public class BuildPanelControl : MonoBehaviour
     private int index_Material = 0;
     private MaterialItem currentMaterial = null;
     private MaterialItem targetMaterial = null;
-    private float scrollNum_Material = 0.0f;                                    // Record the number of scroll number
+    private float scrollNum_Material = 0.0f;                               // Record the number of scroll number
 
-    private string[] itemNames = new string[] { "", "[Others]", "[Roof]", "[Stairs]", "[Window]", "[Door]", "[Wall]", "[Floor]", "[Foundation]" };
+    private string[] itemNames = new string[] {
+        "", "[Others]", "[Roof]", "[Stairs]", "[Window]",
+        "[Door]", "[Wall]", "[Floor]", "[Foundation]"
+    };
     private List<Sprite[]> materialIcons = new List<Sprite[]>();
     private int zIndex = 20;                                               // Initialized rotation of material UI 
 
     private List<string[]> materialIconName = new List<string[]>();
+    private List<GameObject[]> materialModels = new List<GameObject[]>();
 
     private bool isItemControl = true;                                     // Control item or material
 
+    // Build model control
+    private Transform player_Transform;
+    private GameObject tempBuildModel = null;                              // Prefab
+    private GameObject buildModel = null;                                  // Model
+    private Camera envCamera = null;
+    private Ray ray;
+    private RaycastHit hit;
+    
     private void Start()
     {
         Init();
         LoadIcons();
         LoadMaterialIcons();
         SetMaterialIconName();
+        LoadMaterialsModels();
         CreateItems();
     }
 
@@ -79,9 +92,38 @@ public class BuildPanelControl : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (targetItem.materialList.Count == 0) return;
-            isItemControl = false;
+            if (targetItem == null) return;
+            if (targetItem.materialList.Count == 0)
+            {
+                SetLeftKeyNull();
+                HideUI();
+                return;
+            }
+            if (tempBuildModel == null) isItemControl = false;
+
+            if(tempBuildModel != null && showUI)
+            {
+                HideUI();
+            }
+
+            // Check if the model can be placed
+            if (buildModel != null && buildModel.GetComponent<Platform>().CanPut == false) return;
+
+            if (buildModel != null && buildModel.GetComponent<Platform>().CanPut == true)
+            {
+                buildModel.GetComponent<Platform>().Normal();
+                GameObject.Destroy(buildModel.GetComponent<Platform>());
+            }
+
+            // Create build model
+            if (tempBuildModel != null)
+            {
+                buildModel = GameObject.Instantiate<GameObject>(tempBuildModel, player_Transform.position + new Vector3(0, 0, 10), Quaternion.identity);
+                isItemControl = true;
+            }
         }
+
+        SetModelPosition();
     }
 
     private void Init()
@@ -91,6 +133,8 @@ public class BuildPanelControl : MonoBehaviour
         prefab_Item = Resources.Load<GameObject>("Build/Prefab/Item");
         prefab_Material = Resources.Load<GameObject>("Build/Prefab/MaterialBG");
         itemName = m_Transform.Find("WheelBG/ItemName").GetComponent<Text>();
+        player_Transform = GameObject.Find("FPSController").GetComponent<Transform>();
+        envCamera = GameObject.Find("EnvCamera").GetComponent<Camera>();
     }
 
     private void LoadIcons()
@@ -132,6 +176,20 @@ public class BuildPanelControl : MonoBehaviour
         materialIconName.Add(new string[] { "Floor Wood" });
         materialIconName.Add(new string[] { "Platform Wood" });
 
+    }
+
+    // Load material models
+    private void LoadMaterialsModels()
+    {
+        materialModels.Add(null);
+        materialModels.Add(new GameObject[] { BuildModel("Ceiling_Light"), BuildModel("Pillar"), BuildModel("Ladder") });
+        materialModels.Add(new GameObject[] { BuildModel("Roof") });
+        materialModels.Add(new GameObject[] { BuildModel("Stairs"), BuildModel("L_Shaped_Stairs") });
+        materialModels.Add(new GameObject[] { BuildModel("Window") });
+        materialModels.Add(new GameObject[] { BuildModel("Door") });
+        materialModels.Add(new GameObject[] { BuildModel("Wall"), BuildModel("Doorway"), BuildModel("Window_Frame") });
+        materialModels.Add(new GameObject[] { BuildModel("Floor") });
+        materialModels.Add(new GameObject[] { BuildModel("Platform") });
     }
 
     private void CreateItems()
@@ -180,7 +238,16 @@ public class BuildPanelControl : MonoBehaviour
         {
             BG_Transform.gameObject.SetActive(true);
             showUI = true;
+            if (tempBuildModel != null) tempBuildModel = null;
+            if (targetMaterial != null) targetMaterial.Normal();
         }
+    }
+
+    // Hide UI panel 
+    private void HideUI()
+    {
+        BG_Transform.gameObject.SetActive(false);
+        showUI = false;
     }
 
     // Mouse scroll wheel operation for main menu
@@ -211,6 +278,7 @@ public class BuildPanelControl : MonoBehaviour
 
         if (targetMaterial != currentMaterial)
         {
+            tempBuildModel = materialModels[index % itemList.Count][index_Material % targetItem.materialList.Count];
             targetMaterial.Highlight();
             if(currentMaterial != null)
             {
@@ -237,5 +305,41 @@ public class BuildPanelControl : MonoBehaviour
     private Sprite MaterialIcon(string name)
     {
         return Resources.Load<Sprite>("Build/MaterialIcon/" + name);
+    }
+
+    private GameObject BuildModel(string name)
+    {
+        return Resources.Load<GameObject>("Build/Prefabs/" + name);
+    }
+
+    // Use ray to set models position
+    private void SetModelPosition()
+    {
+        ray = envCamera.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit, 15, ~(1 << 13)))
+        {
+            if (buildModel != null)
+            {
+                if (buildModel.GetComponent<Platform>().Attach == false)
+                {
+                    buildModel.GetComponent<Transform>().position = hit.point;
+                }
+                if (Vector3.Distance(hit.point, buildModel.GetComponent<Transform>().position) > 1)
+                {
+                    buildModel.GetComponent<Platform>().Attach = false;
+                }
+            }
+        }
+    }
+
+    // Set buildModel null when click left key
+    private void SetLeftKeyNull()
+    {
+        if (tempBuildModel != null) tempBuildModel = null;
+        if(buildModel != null)
+        {
+            GameObject.Destroy(buildModel);
+            buildModel = null;
+        }
     }
 }

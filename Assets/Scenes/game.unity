@@ -6411,7 +6411,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 6455
+    m_Bits: 14647
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -7577,6 +7577,11 @@ PrefabInstance:
     - target: {fileID: 447809127938928801, guid: 97a821d6d0c9a154cb3bcd156908702f,
         type: 3}
       propertyPath: m_Name
+      value: Terrain
+      objectReference: {fileID: 0}
+    - target: {fileID: 447809127938928801, guid: 97a821d6d0c9a154cb3bcd156908702f,
+        type: 3}
+      propertyPath: m_TagString
       value: Terrain
       objectReference: {fileID: 0}
     - target: {fileID: 447809127938928812, guid: 97a821d6d0c9a154cb3bcd156908702f,

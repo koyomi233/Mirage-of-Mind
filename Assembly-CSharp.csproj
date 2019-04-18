@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\Build\BuildPanelControl.cs" />
     <Compile Include="Assets\Scripts\Build\Item.cs" />
     <Compile Include="Assets\Scripts\Build\MaterialItem.cs" />
+    <Compile Include="Assets\Scripts\Build\Platform.cs" />
     <Compile Include="Assets\Scripts\Const\GameConst.cs" />
     <Compile Include="Assets\Scripts\Const\GameEnum.cs" />
     <Compile Include="Assets\Scripts\Crafting\CraftingContentController.cs" />
@@ -121,15 +122,32 @@
     <Compile Include="Assets\Scripts\Tools\ResourcesTools.cs" />
     <Compile Include="Assets\Scripts\UserInterface\IUIPanelShowAndHide.cs" />
     <None Include="Assets\Demigiant\DOTweenPro\readme.txt" />
+    <None Include="Assets\BuildModels\Shaders\Standard\_Antialiasing\SSAA.shader" />
+    <None Include="Assets\BuildModels\Shaders\Standard\_DepthOfField\DepthOfField34.shader" />
+    <None Include="Assets\BuildModels\Shaders\Standard\_Antialiasing\FXAAPreset3.shader" />
+    <None Include="Assets\BuildModels\Shaders\Standard\ColorCorrectionSelective.shader" />
     <None Include="Assets\Demigiant\DemiLib\Core\DemiLib.xml" />
+    <None Include="Assets\BuildModels\Shaders\Standard\_BloomAndFlares\BrightPassFilter2.shader" />
     <None Include="Assets\Demigiant\DOTween\DOTween50.xml" />
     <None Include="Assets\Resources\JsonData\InventoryJsonData.txt" />
+    <None Include="Assets\BuildModels\Shaders\Standard\_Antialiasing\FXAA2.shader" />
+    <None Include="Assets\BuildModels\Shaders\Standard\_DepthOfField\Bokeh34.shader" />
     <None Include="Assets\Resources\JsonData\CraftingMapJsonData.txt" />
+    <None Include="Assets\BuildModels\Shaders\Standard\_BloomAndFlares\BlendForBloom.shader" />
+    <None Include="Assets\BuildModels\Shaders\Standard\ColorCorrectionCurves.shader" />
     <None Include="Assets\Demigiant\DOTween\DOTween46.xml" />
+    <None Include="Assets\BuildModels\Shaders\Standard\_Antialiasing\FXAAPreset2.shader" />
     <None Include="Assets\Resources\JsonData\CraftingContentsJsonData.txt" />
+    <None Include="Assets\BuildModels\Shaders\Standard\_BloomAndFlares\BlurAndFlares.shader" />
     <None Include="Assets\Demigiant\DOTween\readme.txt" />
+    <None Include="Assets\BuildModels\Shaders\Standard\_DepthOfField\SeparableWeightedBlurDof34.shader" />
     <None Include="Assets\Demigiant\DOTween\DOTween43.xml" />
+    <None Include="Assets\BuildModels\Shaders\Standard\ColorCorrectionCurvesSimple.shader" />
+    <None Include="Assets\BuildModels\Shaders\Standard\_Antialiasing\NFAA.shader" />
+    <None Include="Assets\BuildModels\Shaders\Standard\_Antialiasing\FXAA3Console.shader" />
     <None Include="Assets\Demigiant\readme_DOTweenPro.txt" />
+    <None Include="Assets\BuildModels\Shaders\Standard\_Antialiasing\DLAA.shader" />
+    <None Include="Assets\BuildModels\Shaders\Standard\_BloomAndFlares\LensFlareCreate.shader" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/Unity_Workspace/Mirrage of Mind/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
