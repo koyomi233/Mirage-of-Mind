@@ -9,6 +9,9 @@ public class Platform : MonoBehaviour
 {
     private Transform m_Transform;
 
+    private Material oldMaterial;
+    private Material newMaterial;
+
     private bool canPut = true;                         // Whether the model can put at the current position
     private bool attach = false;                        // Whether models can attach to each other
 
@@ -18,23 +21,26 @@ public class Platform : MonoBehaviour
     private void Start()
     {
         m_Transform = gameObject.GetComponent<Transform>();
+        oldMaterial = gameObject.GetComponent<MeshRenderer>().material;
+        newMaterial = Resources.Load<Material>("Build/Building Preview");
+        gameObject.GetComponent<MeshRenderer>().material = newMaterial;
     }
 
     private void Update()
     {
         if (canPut)
         {
-            gameObject.GetComponent<MeshRenderer>().material.color = Color.green;
+            gameObject.GetComponent<MeshRenderer>().material.color = new Color32(0, 255, 0, 100);
         }
         else
         {
-            gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+            gameObject.GetComponent<MeshRenderer>().material.color = new Color32(255, 0, 0, 100);
         }
     }
 
     public void Normal()
     {
-        gameObject.GetComponent<MeshRenderer>().material.color = Color.white;
+        gameObject.GetComponent<MeshRenderer>().material = oldMaterial;
     }
 
     private void OnCollisionEnter(Collision collision)
