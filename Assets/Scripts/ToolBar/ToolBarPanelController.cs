@@ -19,6 +19,30 @@ public class ToolBarPanelController : MonoBehaviour
 
     public GameObject CurrentActiveModel { get { return currentActiveModel; } }
 
+    public ToolBarSlotController ToolBarSlotController
+    {
+        get => default;
+        set
+        {
+        }
+    }
+
+    public ToolBarPanelModel ToolBarPanelModel
+    {
+        get => default;
+        set
+        {
+        }
+    }
+
+    public ToolBarPanelView ToolBarPanelView
+    {
+        get => default;
+        set
+        {
+        }
+    }
+
     private void Awake()
     {
         Instance = this;

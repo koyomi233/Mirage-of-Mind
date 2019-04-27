@@ -26,6 +26,22 @@ public class PlayerController : MonoBehaviour
     public int HP { get { return hp; } set { hp = value; } }
     public int VIT { get { return vit; } set { vit = value; } }
 
+    public BloodScreenPanel BloodScreenPanel
+    {
+        get => default;
+        set
+        {
+        }
+    }
+
+    public PlayerInfoPanel PlayerInfoPanel
+    {
+        get => default;
+        set
+        {
+        }
+    }
+
     void Start()
     {
         m_Transform = gameObject.GetComponent<Transform>();

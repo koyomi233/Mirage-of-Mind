@@ -28,6 +28,54 @@ public class CraftingPanelController : MonoBehaviour
     private int materialsCount = 0;                       // Number of materials needed for generation(declared in JSON)
     private int dragMaterialsCount = 0;                   // Number of materials in crafting panel
 
+    public CraftingPanelView CraftingPanelView
+    {
+        get => default;
+        set
+        {
+        }
+    }
+
+    public CraftingPanelModel CraftingPanelModel
+    {
+        get => default;
+        set
+        {
+        }
+    }
+
+    public CraftingContentController CraftingContentController
+    {
+        get => default;
+        set
+        {
+        }
+    }
+
+    public CraftingTabItemController CraftingTabItemController
+    {
+        get => default;
+        set
+        {
+        }
+    }
+
+    public CraftingSlotController CraftingSlotController
+    {
+        get => default;
+        set
+        {
+        }
+    }
+
+    public CraftingController CraftingController
+    {
+        get => default;
+        set
+        {
+        }
+    }
+
     private void Awake()
     {
         Instance = this;

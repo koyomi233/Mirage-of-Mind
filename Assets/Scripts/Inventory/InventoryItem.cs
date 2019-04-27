@@ -33,6 +33,14 @@ public class InventoryItem
         set { itemBar = value; }
     }
 
+    public InventoryPanelModel InventoryPanelModel
+    {
+        get => default;
+        set
+        {
+        }
+    }
+
     public InventoryItem() { }
     public InventoryItem(int itemId, string itemName, int itemNum)
     {

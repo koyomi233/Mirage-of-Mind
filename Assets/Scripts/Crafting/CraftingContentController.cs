@@ -14,6 +14,14 @@ public class CraftingContentController : MonoBehaviour
 
     private int index = -1;
 
+    public CraftingContentItemController CraftingContentItemController
+    {
+        get => default;
+        set
+        {
+        }
+    }
+
     void Awake ()
     {
         m_Transform = gameObject.GetComponent<Transform>();

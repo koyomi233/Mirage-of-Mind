@@ -30,6 +30,14 @@ public class AIManager : MonoBehaviour
 
     public AIManagerType AIManagerType { get { return aiManagerType; } set { aiManagerType = value; } }
 
+    public AI AI
+    {
+        get => default;
+        set
+        {
+        }
+    }
+
     private void Start()
     {
         m_Transform = gameObject.GetComponent<Transform>();

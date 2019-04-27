@@ -1,0 +1,531 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access">
+  <Class Name="AI" Collapsed="true">
+    <Position X="15.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUCAQAIACAAAQCgUjEOAcAAAoFAgGDhlAAQDBABAEA=</HashCode>
+      <FileName>Assets\Scripts\AI\AI.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AIRagdoll" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="AIManager" Collapsed="true">
+    <Position X="13.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAKACAAEQBgAAYAAAAAAAAAAAAhGAgAAAABAAA=</HashCode>
+      <FileName>Assets\Scripts\AI\AIManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AI" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="AIManagers" Collapsed="true">
+    <Position X="13.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACCIACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\AI\AIManagers.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AIManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="AIRagdoll" Collapsed="true">
+    <Position X="15.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIACAAAAAAAAABAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\AI\AIRagdoll.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuildPanelControl" Collapsed="true">
+    <Position X="25" Y="6.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAwAAQBIJCggAgCAABLBAGAJACMMAgAgIBGDQRABAAI=</HashCode>
+      <FileName>Assets\Scripts\Build\BuildPanelControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Item" Collapsed="true">
+    <Position X="19.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAEAgAAAEAAAEAAAAAAAAAAAIAQICAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Build\Item.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MaterialItem" Collapsed="true">
+    <Position X="21.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIACAAAAAAAAAAAAQAAAAIAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Build\MaterialItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Platform" Collapsed="true">
+    <Position X="23.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAASIACAACAAAAAAAAAAAAIAIAICMQAAAIAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Build\Platform.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameConst" Collapsed="true">
+    <Position X="19.75" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQCAAAADBABAAAABAAAAAAAgACAAAAAAAAACAAAA=</HashCode>
+      <FileName>Assets\Scripts\Const\GameConst.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CraftingContentController" Collapsed="true">
+    <Position X="4" Y="19.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAABAgAIAgAAAAAAAAAAAAAEBAEA=</HashCode>
+      <FileName>Assets\Scripts\Crafting\CraftingContentController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="CraftingContentItemController" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CraftingContentItem" Collapsed="true">
+    <Position X="12.25" Y="16.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAABACAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Crafting\CraftingContentItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CraftingContentItemController" Collapsed="true">
+    <Position X="3.75" Y="21.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAGAAAIAAAAAgAAAAAAAAAAAAAEACAACIACAAgAAkA=</HashCode>
+      <FileName>Assets\Scripts\Crafting\CraftingContentItemController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CraftingController" Collapsed="true">
+    <Position X="10.25" Y="19.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>gAAJAAAIAAAAAAgAEgAAAABAAAIIAAAAAAACAgAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Crafting\CraftingController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CraftingMapItem" Collapsed="true">
+    <Position X="12.25" Y="15.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAIAAAACAAAEAAAAAAAAABAQAAAQEAAAAAEAAAA=</HashCode>
+      <FileName>Assets\Scripts\Crafting\CraftingMapItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CraftingPanelController" Collapsed="true">
+    <Position X="4.25" Y="16.25" Width="2" />
+    <AssociationLine Name="CraftingTabItemController" Type="CraftingTabItemController" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.25" Y="16.927" />
+        <Point X="5.25" Y="17.671" />
+        <Point X="1.875" Y="17.671" />
+        <Point X="1.875" Y="19.25" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="CraftingSlotController" Type="CraftingSlotController" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.25" Y="16.927" />
+        <Point X="5.25" Y="17.696" />
+        <Point X="5.729" Y="17.696" Type="JumpStart" />
+        <Point X="5.896" Y="17.696" Type="JumpEnd" />
+        <Point X="8.25" Y="17.696" />
+        <Point X="8.25" Y="19.25" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="CraftingController" Type="CraftingController" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.25" Y="16.927" />
+        <Point X="5.25" Y="17.696" />
+        <Point X="5.729" Y="17.696" Type="JumpStart" />
+        <Point X="5.896" Y="17.696" Type="JumpEnd" />
+        <Point X="11.125" Y="17.696" />
+        <Point X="11.125" Y="19.25" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>gAVAIAAYCigIBACQgAAAEAAEAABCsAIAQBACAEIAAkI=</HashCode>
+      <FileName>Assets\Scripts\Crafting\CraftingPanelController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="CraftingPanelView" />
+      <Property Name="CraftingPanelModel" />
+      <Property Name="CraftingContentController" />
+      <Property Name="CraftingTabItemController" />
+      <Property Name="CraftingSlotController" />
+      <Property Name="CraftingController" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CraftingPanelModel" Collapsed="true">
+    <Position X="8.25" Y="16.25" Width="1.75" />
+    <AssociationLine Name="CraftingMapItem" Type="CraftingMapItem" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10" Y="16.438" />
+        <Point X="10.375" Y="16.438" />
+        <Point X="10.375" Y="16.188" />
+        <Point X="12.25" Y="16.188" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAACAAgAAAAAAAAAACAQAAAAAABAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Crafting\CraftingPanelModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="CraftingMapItem" />
+      <Property Name="CraftingContentItem" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CraftingPanelView" Collapsed="true">
+    <Position X="0.75" Y="16.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>gAgAQAAIgkAAAIAAEAEAAAQBgAEEAAAAQAAgAkAAIEA=</HashCode>
+      <FileName>Assets\Scripts\Crafting\CraftingPanelView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CraftingSlotController" Collapsed="true">
+    <Position X="7.25" Y="19.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>oEACAAAIAAAABAAAAAAAAAAAAAAAAAAAAAACACAAAkA=</HashCode>
+      <FileName>Assets\Scripts\Crafting\CraftingSlotController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CraftingTabItemController" Collapsed="true">
+    <Position X="0.75" Y="19.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAEAABICBAAAAAAAAAAAAAAAAAAAAAAABAAAQAJAEA=</HashCode>
+      <FileName>Assets\Scripts\Crafting\CraftingTabItemController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StoneManager" Collapsed="true">
+    <Position X="19.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACIASAAAAAAAAIAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Env\StoneManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TreeManager" Collapsed="true">
+    <Position X="21.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAACIACAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Env\TreeManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Arrow" Collapsed="true">
+    <Position X="0.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAhgAAAAAAACAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Gun\Arrow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AssaultRifle" Collapsed="true">
+    <Position X="0.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAEAAAABAAAAAAAAAAAASAEAAAAAAACAAAACgA=</HashCode>
+      <FileName>Assets\Scripts\Gun\AssaultRifle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AssaultRifleView" Collapsed="true">
+    <Position X="3" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAIEAAACJAQAAAAACAAAAAAABABACAAAQAAg=</HashCode>
+      <FileName>Assets\Scripts\Gun\AssaultRifleView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BulletBase" Collapsed="true">
+    <Position X="1.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAACoAAAAhAAAAAAIAAIAAAACAAAIAAgCAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Gun\BulletBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BulletMark" Collapsed="true">
+    <Position X="11" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAiAAgAAACAAIAQIIRAAAAAAwAAIAAAAAglAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Gun\BulletMark.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GunControllerBase" Collapsed="true">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQSCASoBCwAhgQgAAMAQAARICAIACAgAgACJAoACgA=</HashCode>
+      <FileName>Assets\Scripts\Gun\GunControllerBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GunFactory" Collapsed="true">
+    <Position X="11" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEACCoBCAAAAAAAAAAAAAAAAAAAAAASAAAAQABAEA=</HashCode>
+      <FileName>Assets\Scripts\Gun\GunFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GunViewBase" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQgAAwAIAAKAAAAAAAAAFAICKBQAACgZAAACECEACEM=</HashCode>
+      <FileName>Assets\Scripts\Gun\GunViewBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GunWeaponBase" Collapsed="true">
+    <Position X="1.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAACQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Assets\Scripts\Gun\GunWeaponBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shell" Collapsed="true">
+    <Position X="11" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAIACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Gun\Shell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shotgun" Collapsed="true">
+    <Position X="3" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAIAAAIAABAgAAAAAAAAACAAAAAAABAACAAAACgA=</HashCode>
+      <FileName>Assets\Scripts\Gun\Shotgun.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShotgunBullet" Collapsed="true">
+    <Position X="2.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAoAAAABgAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Gun\ShotgunBullet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShotgunView" Collapsed="true">
+    <Position X="5.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQACAAAAAIAAAACAAQAAAAACAAAAAAIBABACAAAQAAA=</HashCode>
+      <FileName>Assets\Scripts\Gun\ShotgunView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ThrowWeaponBase" Collapsed="true">
+    <Position X="6.25" Y="5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Gun\ThrowWeaponBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WoodenBow" Collapsed="true">
+    <Position X="7.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAACAAAACgA=</HashCode>
+      <FileName>Assets\Scripts\Gun\WoodenBow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WoodenBowView" Collapsed="true">
+    <Position X="7.5" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAABAAgCAAAIAAA=</HashCode>
+      <FileName>Assets\Scripts\Gun\WoodenBowView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WoodenSpear" Collapsed="true">
+    <Position X="5.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAABAAAAAAACAAAACAA=</HashCode>
+      <FileName>Assets\Scripts\Gun\WoodenSpear.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WoodenSpearView" Collapsed="true">
+    <Position X="0.75" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAQAAAAAACAAAAAAABAAACAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Gun\WoodenSpearView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InventoryItem" Collapsed="true">
+    <Position X="8.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAABACAAAAGgAAAAgAAAABAAAAAAAAEAAAABAA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\InventoryItem.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="InventoryPanelModel" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="InventoryItemController" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4.25" Y="13.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>oEQSOiAEIAAAAgBAAAAIABAAAAAAAAIAAAAAAAhAAk0=</HashCode>
+      <FileName>Assets\Scripts\Inventory\InventoryItemController.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="InventoryPanelController" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4" Y="12" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABGAAAAAEAAAAAAALAABQAAEBQQAAAAAEAEA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\InventoryPanelController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="InventoryPanelView" />
+      <Property Name="InventoryPanelModel" />
+      <Property Name="InventoryItemController" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="InventoryPanelModel" Collapsed="true">
+    <Position X="8" Y="12" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\InventoryPanelModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InventoryPanelView" Collapsed="true">
+    <Position X="0.5" Y="12" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIBAAAAAAAAAEAgAQBAAAIAAAACAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Inventory\InventoryPanelView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AudioManager" Collapsed="true">
+    <Position X="19.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAQABAgAABQAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Manager\AudioManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InputManager" Collapsed="true">
+    <Position X="21.5" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAICAEgAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Assets\Scripts\Manager\InputManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BloodScreenPanel" Collapsed="true">
+    <Position X="14.75" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAIACAAAAAAAAAAAAAAAAAAAAAAAAAQAAAgAAA=</HashCode>
+      <FileName>Assets\Scripts\Player\BloodScreenPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerController" Collapsed="true">
+    <Position X="14.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQQAFAAKACAAgAAAAAAAAAAQ0AgEACAACABAgAABAgA=</HashCode>
+      <FileName>Assets\Scripts\Player\PlayerController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="BloodScreenPanel" />
+      <Property Name="PlayerInfoPanel" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PlayerInfoPanel" Collapsed="true">
+    <Position X="17.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIABAIBCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Assets\Scripts\Player\PlayerInfoPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResetScene" Collapsed="true">
+    <Position X="19.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ResetScene\ResetScene.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ToolBarPanelController" Collapsed="true">
+    <Position X="4" Y="23.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAgASAwCQA0BAAAAgIAAAAAAAAAVAACAAQAAEA=</HashCode>
+      <FileName>Assets\Scripts\ToolBar\ToolBarPanelController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ToolBarSlotController" />
+      <Property Name="ToolBarPanelModel" />
+      <Property Name="ToolBarPanelView" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ToolBarPanelModel" Collapsed="true">
+    <Position X="7.75" Y="23.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\ToolBar\ToolBarPanelModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ToolBarPanelView" Collapsed="true">
+    <Position X="0.75" Y="23.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAIAAAAAAgAAAAAgAAgAIAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\ToolBar\ToolBarPanelView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ToolBarSlotController" Collapsed="true">
+    <Position X="4" Y="25.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>gBAEAAAYAAAAAgAAAAAAAQAAAAAIAAAgAAACAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\ToolBar\ToolBarSlotController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JsonTools" Collapsed="true">
+    <Position X="21.5" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Assets\Scripts\Tools\JsonTools.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectPool" Collapsed="true">
+    <Position X="19.75" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAAAAABAAAABAAAAgAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Tools\ObjectPool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResourcesTools" Collapsed="true">
+    <Position X="23.25" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAACAAAA=</HashCode>
+      <FileName>Assets\Scripts\Tools\ResourcesTools.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="IUIPanelShowAndHide" Collapsed="true">
+    <Position X="19.75" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\UserInterface\IUIPanelShowAndHide.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="AIState" Collapsed="true">
+    <Position X="21.5" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAFAAACAAAAAAAACAAAAAAACAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Assets\Scripts\AI\AI.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AIManagerType" Collapsed="true">
+    <Position X="19.75" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAAAAIAAAAAAAIAAAAA=</HashCode>
+      <FileName>Assets\Scripts\AI\AIManager.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AIType" Collapsed="true">
+    <Position X="23.25" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAAAAIAAAAAAAIAAAAA=</HashCode>
+      <FileName>Assets\Scripts\AI\AIManager.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="GunType" Collapsed="true">
+    <Position X="21.5" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAQAAIAAACAAAAAAEAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Assets\Scripts\Const\GameEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="MaterialType" Collapsed="true">
+    <Position X="23.25" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAgAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Const\GameEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ClipName" Collapsed="true">
+    <Position X="25" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAiAQADAEAAACAIAAAAEAAAAAAAAAADkAAQEAA=</HashCode>
+      <FileName>Assets\Scripts\Manager\AudioManager.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

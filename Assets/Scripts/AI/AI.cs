@@ -50,6 +50,14 @@ public class AI : MonoBehaviour
     }
     public int Attack { get { return attack; } set { attack = value; } }
 
+    public AIRagdoll AIRagdoll
+    {
+        get => default;
+        set
+        {
+        }
+    }
+
     private void Awake()
     {
         m_Transform = gameObject.GetComponent<Transform>();

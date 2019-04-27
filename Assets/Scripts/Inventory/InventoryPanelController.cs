@@ -17,6 +17,30 @@ public class InventoryPanelController : MonoBehaviour, IUIPanelShowAndHide
     private int slotNum = 30;
     private List<GameObject> slotList = new List<GameObject>();
 
+    public InventoryPanelView InventoryPanelView
+    {
+        get => default;
+        set
+        {
+        }
+    }
+
+    public InventoryPanelModel InventoryPanelModel
+    {
+        get => default;
+        set
+        {
+        }
+    }
+
+    public InventoryItemController InventoryItemController
+    {
+        get => default;
+        set
+        {
+        }
+    }
+
     private void Awake()
     {
         Instance = this;

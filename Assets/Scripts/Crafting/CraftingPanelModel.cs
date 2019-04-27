@@ -11,6 +11,22 @@ public class CraftingPanelModel : MonoBehaviour
 {
     Dictionary<int, CraftingMapItem> mapItemDic = null;
 
+    public CraftingMapItem CraftingMapItem
+    {
+        get => default;
+        set
+        {
+        }
+    }
+
+    public CraftingContentItem CraftingContentItem
+    {
+        get => default;
+        set
+        {
+        }
+    }
+
     void Awake()
     {
         mapItemDic = LoadMapContents("CraftingMapJsonData");

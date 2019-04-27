@@ -7,6 +7,14 @@ public class AIManagers : MonoBehaviour
     private Transform m_Transform;
     private Transform[] points;
 
+    public AIManager AIManager
+    {
+        get => default;
+        set
+        {
+        }
+    }
+
     private void Start()
     {
         m_Transform = gameObject.GetComponent<Transform>();
